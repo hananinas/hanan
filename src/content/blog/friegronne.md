@@ -14,7 +14,7 @@ description: A blog post about my experience working on Elusive, where I used Ru
 ---
 
 
-As a web developer, I recently had the pleasure of working on a project for Friegrønne, a Danish poltical party. Friegrønne wanted a website that would showcase their products and services to potential voters. In this blog post, I'll share my experience building Friegrønne's website using SEO and designing tools like Figma and WordPress.
+As a web developer, I recently had the pleasure of working on a project for Friegrønne, a Danish political party. Friegrønne wanted a website that would showcase their vision and ideas to potential voters. In this blog post, I'll share my experience building Friegrønne's website using SEO and designing tools like Figma and WordPress.
 
 ## Understanding Friegrønne's Vision and Goals
 
