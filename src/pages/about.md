@@ -1,36 +1,34 @@
 ---
 layout: ../layouts/AboutLayout.astro
-title: "About"
+title: "About me"
 ---
-
-AstroPaper is a minimal, responsive and SEO-friendly Astro blog theme. I designed and crafted this based on [my personal blog](https://satnaing.dev/blog).
-
-This theme is aimed to be accessible out of the box. Light and dark mode are supported by
-default and additional color schemes can also be configured.
-
-This theme is self-documented \_ which means articles/posts in this theme can also be considered as documentations. So, see the documentation for more info.
-
-<div>
-  <img src="/assets/dev.svg" class="sm:w-1/2 mx-auto" alt="coding dev illustration">
+<div align="left">
+<h2></h2>
+<p>I'm Hanan, a software development student at ITU, and also the founder of Elusive and UAI. My goal is to use my software skills to develop innovative solutions for modern problems. I am passionate about working at the intersection of technology and business.</p>
 </div>
 
-## Tech Stack
+<div align="center">
+<h2>Skills</h2>
+<ul>
+<li>React</li>
+<li>Other JavaScript Frameworks</li>
+<li>Shopify</li>
+<li>Python</li>
+<li>HTML</li>
+<li>CSS</li>
+<li>Wordpress</li>
+</ul>
+</div>
 
-This theme is written in vanilla JavaScript (+ TypeScript for type checking) and a little bit of ReactJS for some interactions. TailwindCSS is used for styling; and Markdown is used for blog contents.
+<div align="center">
+<h2>Projects</h2>
+<ul>
+<div>Elusive - a startup focused on solving modern communication problems. I used React to build the web application.</div>
+<div>UAI - a platform that leverages machine learning to improve customer experiences.</div>
+</ul>
+<p>In addition to my work with Elusive and UAI, I have experience with HTML and CSS, which I have used to build websites and web applications.</p>
+</div>
 
-## Features
-
-Here are certain features of this site.
-
-- fully responsive and accessible
-- SEO-friendly
-- light & dark mode
-- fuzzy search
-- super fast performance
-- draft posts
-- pagination
-- sitemap & rss feed
-- highly customizable
-
-If you like this theme, you can star/contribute to the [repo](https://github.com/satnaing/astro-paper).  
-Or you can even give any feedback via my [email](mailto:contact@satnaing.dev).
+<div align="center">
+<p>If you're interested in learning more about me or my work, please feel free to reach out via email at <a href="[mailto:hanan@uai.dk](mailto:hanan@uai.dk)" class="text-blue-500 hover:underline">hanan@uai.dk</a>.</p>
+</div>

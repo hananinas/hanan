@@ -39,31 +39,33 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     {
       featuredPosts.length > 0 && (
         <>
-          <section id="featured" class="">
+          <section id="featured" class="sm: max-w-[72rem]" >
             <div class="flex ">
               <span class="text-[19px]"> <a class="text-[#6FCF97]">~/</a> projects</span>
 	            <img width="100px" height="300px" src="images/Line.svg" ><img/>
 	            <a class="mt-2 ml-2" href="/posts"><img src="/images/View all.svg" alt="">  </a>    
             </div>
+            <ul class="sm:grid grid-cols-3 gap-[10rem]">
               {featuredPosts.map(({ data }) => (
                 <Card
-                  href={`/posts/${slugify(data)}`}
+                  href={`/projects/${slugify(data)}`}
                   frontmatter={data}
                   secHeading={false}
                 />
               ))}
+            </ul>
           </section>
         </>
       )
     }
 
-    <section id="recent-posts">
+    <section id="recent-posts" class="sm: max-w-[72rem]">
       <h2>Recent Posts</h2>
-      <ul>
+      <ul class="sm:grid grid-cols-3 gap-[10rem]">
         {
           sortedPosts.map(
             ({ data }, index) =>
-              index < 4 && (
+              index < 3 && (
                 <Card
                   href={`/posts/${slugify(data)}`}
                   frontmatter={data}
