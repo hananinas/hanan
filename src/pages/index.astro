@@ -24,7 +24,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   {
     // only display if at least one social link is enabled
     socialCount > 0 && (
-    <div  class="absolute top-0 left-5 z-50">
+    <div  class="absolute top-0 left-5 z-50 animate__animated animate__jello sm:left-20">
       <img src="images/linetop.svg" alt="">
       <Socials />
 
@@ -89,6 +89,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
 
 <style>
   /* ===== Hero Section ===== */
+  
   #hero {
     @apply pt-8 pb-6;
   }
