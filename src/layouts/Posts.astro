@@ -24,13 +24,13 @@ const next = pageNum < totalPages ? "" : "disabled";
 <Layout title={`Projects | ${SITE.title}`}>
   <Header activeNav="projects" />
   <Main pageTitle="Projects" pageDesc="All the articles I've posted.">
-    <ul>
-      {
-        posts.map(({ data }) => (
-          <Card href={`/projects/${slugify(data)}`} frontmatter={data} />
-        ))
-      }
-    </ul>
+      <ul class="sm:grid grid-cols-3 gap-[10rem] ">
+        {
+          posts.map(({ data }) => (
+            <Card href={`/projects/${slugify(data)}`} frontmatter={data} />
+          ))
+        }
+      </ul>   
   </Main>
 
   {
