@@ -4,7 +4,7 @@ pubDatetime: 2023-03-13T15:20:35Z
 title: Building Friegrønne's Website with SEO and Designing in Figma and WordPress
 postSlug: building-friegrønne-website-with-SEO-and-Designing-in-Figma-and-WordPress
 featured: true
-ogImage: images/IMG_1642-6.png
+ogImage: blog-images/logofrie.png
 tags:
 - Figma
 - Html
@@ -22,7 +22,7 @@ Before starting any project, it's important to understand the client's vision an
 
 ## Designing the Website with Figma
 
-![old website](/public/blog-images/oldfriegronne.png)
+![old website](/blog-images/oldfriegronne.png)
 The left images is the old website to the right you can see the first Mockup
 
 To create a design that would meet Friegrønne's requirements, I used Figma - a collaborative interface design tool. Figma allowed me to create a wireframe and design the website's user interface (UI) in a seamless and efficient way. I started by creating a sitemap of the website, which helped me to organize the content and structure of the website.
