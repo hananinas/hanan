@@ -3,11 +3,11 @@ import { LOGO_IMAGE, SITE } from "@config";
 import Hr from "./Hr.astro";
 import LinkButton from "./LinkButton.astro";
 
-import logoPNG from "/assets/logo.png";
-import logoSVG from "/assets/logo.svg";
+import logoPNG from "/images/logo.png";
+import logoSVG from "/images/logo.svg";
 
 export interface Props {
-  activeNav?: "posts" | "tags" | "about" | "search";
+  activeNav?: "posts" | "skils" | "about" | "search";
 }
 
 const { activeNav } = Astro.props;
@@ -17,7 +17,7 @@ const { activeNav } = Astro.props;
   <a id="skip-to-content" href="#main-content">Skip to content</a>
   <div class="nav-container">
     <div class="top-nav-wrap">
-      <a href="/" class="logo">
+      <a href="/" class="logo left-14 top-0">
         {
           LOGO_IMAGE.enable ? (
             <img
@@ -47,17 +47,17 @@ const { activeNav } = Astro.props;
         <ul id="menu-items" class="display-none sm:flex">
           <li>
             <a href="/posts" class={activeNav === "posts" ? "active" : ""}>
-              Posts
+            <span class="text-[#D90416]">~/</span>Projects
             </a>
           </li>
           <li>
-            <a href="/tags" class={activeNav === "tags" ? "active" : ""}>
-              Tags
+            <a href="/skils" class={activeNav === "skils" ? "active" : ""}>
+              <span class="text-[#D90416]">~/</span>Skils
             </a>
           </li>
           <li>
             <a href="/about" class={activeNav === "about" ? "active" : ""}>
-              About
+              <span class="text-[#D90416]">~/</span>About me
             </a>
           </li>
           <li>
@@ -102,7 +102,6 @@ const { activeNav } = Astro.props;
       </nav>
     </div>
   </div>
-  <Hr />
 </header>
 
 <style>
