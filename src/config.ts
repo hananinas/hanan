@@ -2,10 +2,10 @@ import type { SocialObjects } from "./types";
 
 export const SITE = {
   website: "https://astro-paper.pages.dev/",
-  author: "Sat Naing",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
+  author: "Abdul Hanan",
+  desc: "I'm Hanan, a software development student at ITU, and also the founder of Elusive and UAI.",
   title: "Hanan",
-  ogImage: "astropaper-og.jpg",
+  ogImage: "hanan.png",
   lightAndDarkMode: true,
   postPerPage: 3,
 };

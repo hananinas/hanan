@@ -4,6 +4,7 @@ import Hr from "./Hr.astro";
 import LinkButton from "./LinkButton.astro";
 
 import logoSVG from "/images/logo.svg";
+import logoSVG_dark from "/images/logo-dark.svg";
 
 export interface Props {
   activeNav?: "projects" | "skils" | "about" | "search";
@@ -19,9 +20,17 @@ const { activeNav } = Astro.props;
       <a href="/" class="logo left-14 top-0">
         {
           LOGO_IMAGE.enable ? (
-            <img
+           
+          
+            <img id="logo"
+              src={logoSVG_dark}
+              alt="Hanan Logo"
+              width={LOGO_IMAGE.width}
+              height={LOGO_IMAGE.height}
+            />
+            <img id="dark-logo"
               src={LOGO_IMAGE.svg ? logoSVG:logoSVG}
-              alt="AstroPaper Logo"
+              alt="Hanan Logo"
               width={LOGO_IMAGE.width}
               height={LOGO_IMAGE.height}
             />
