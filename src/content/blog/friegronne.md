@@ -10,7 +10,7 @@ tags:
 - Html
 - CSS
 - Wordpress
-description: A blog post about my experience working on Elusive, where I used Ruby and Shopify, and also incorporated Python with the GraphQL API to add products to the website.
+description: A blog post about my experience working on Friegrønne, where I share my experience building Friegrønne's website using SEO and designing tools like Figma and WordPress.
 ---
 
 
