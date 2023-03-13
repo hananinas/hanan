@@ -17,6 +17,8 @@ title: "About me"
 <li>HTML</li>
 <li>CSS</li>
 <li>Wordpress</li>
+<li>Java</li>
+
 </ul>
 </div>
 
