@@ -29,6 +29,6 @@ title: "About me"
 <p>In addition to my work with Elusive and UAI, I have experience with HTML and CSS, which I have used to build websites and web applications.</p>
 </div>
 
-<div align="center">
-<p>If you're interested in learning more about me or my work, please feel free to reach out via email at <a href="[mailto:hanan@uai.dk](mailto:hanan@uai.dk)" class="text-blue-500 hover:underline">hanan@uai.dk</a>.</p>
+## Contact info
+If you're interested in learning more about me or my work, please feel free to reach out via email at [hanan@uai.dk](mailto:hanan@uai.dk).
 </div>

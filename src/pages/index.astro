@@ -39,12 +39,12 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     {
       featuredPosts.length > 0 && (
         <>
-          <section id="featured" class="sm: max-w-[72rem]" >
+          <section id="featured" class="sm:max-w-[72rem]" >
             <div class="flex ">
-              <span class="text-[19px] sm:text-[30px]"> <a class="text-[#6FCF97]">~/</a> projects</span>
+              <span class="text-[19px] sm:text-[30px]"> <a class="text-[#6FCF97]">~/</a>projects </span>
 	            <img class="sm:hidden" width="100px" height="300px" src="images/Line.svg" ><img/>
-	            <img  src="images/LineBig.svg" ><img/>
-	            <a class="mt-2 ml-2 sm:mt-3 sm:ml-200" href="/posts"><img src="/images/View all.svg" alt="">  </a>    
+	            <img class="absolute left-200% invisible sm:visible sm:relative" src="images/LineBig.svg" ><img/>
+              <a class="mt-2 ml-2 sm:mt-3 sm:ml-200" href="/posts"><img src="/images/View all.svg" alt="">  </a>    
             </div>
             <ul class="sm:grid grid-cols-3 gap-[10rem]">
               {featuredPosts.map(({ data }) => (
@@ -60,35 +60,26 @@ const socialCount = SOCIALS.filter(social => social.active).length;
       )
     }
 
-    <section id="recent-posts" class="sm: max-w-[72rem]">
+    <section id="About-me" class="sm:max-w-[72rem]">
       <div class="flex ">
-              <span class="text-[19px]"> <a class="text-[#6FCF97]">~/</a> projects</span>
-	            <img width="100px" height="300px" src="images/Line.svg" ><img/>
-	            <a class="mt-2 ml-2" href="/posts"><img src="/images/View all.svg" alt="">  </a>    
+              <span class="text-[19px] sm:text-[30px]"> <a class="text-[#6FCF97]">~/</a>About-me </span>
+	            <img class="sm:hidden" width="100px" height="300px" src="images/Line.svg" ><img/>
+	            <img class="absolute left-200% invisible sm:visible sm:relative" src="images/LineBig.svg" ><img/>
       </div>
-      <ul class="sm:grid grid-cols-3 gap-[10rem]">
-        {
-          sortedPosts.map(
-            ({ data }, index) =>
-              index < 3 && (
-                <Card
-                  href={`/projects/${slugify(data)}`}
-                  frontmatter={data}
-                  secHeading={false}
-                />
-              )
-          )
-        }
-      </ul>
-      <div class="all-posts-btn-wrapper">
-        <LinkButton href="/projects">
-          All Posts
-          <svg xmlns="http://www.w3.org/2000/svg"
-            ><path
-              d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
-            ></path>
-          </svg>
-        </LinkButton>
+      <p class="mt-5">I'm Hanan, a software development student at ITU, and also the founder of Elusive and UAI. <br>My goal is to use my software skills to develop innovative solutions for modern problems. <br> I am passionate about working at the intersection of technology and business.</p>
+      <a href="/about"><button class="border-[1px]	border-[#6FCF97] h-[37px] w-[148px] mt-10 font-code sm:w-[200px]">Read more</button></a>
+    </section>
+
+    <section id="Conact-me" class="sm:max-w-[72rem] sm:h-[30rem]">
+      <div class="flex ">
+              <span class="text-[19px] sm:text-[30px]"> <a class="text-[#6FCF97]">~/</a>Conact </span>
+	            <img class="sm:hidden" width="100px" height="300px" src="images/Line.svg" ><img/>
+	            <img class="absolute left-200% invisible sm:visible sm:relative" src="images/LineBig.svg" ><img/>
+      </div>
+      <p class="sm:absolute sm:mt-32 sm:w-[500px] ">I’m interested in freelance opportunities or part time work. However, if you have other request or question, don’t hesitate to contact me</p>
+      <div class="border-[1px] h-32	border-[#6FCF97] sm:w-[185px] sm:h-[141px] sm:absolute sm:ml-[40rem] sm:mt-[5rem] text-center">
+        <p class="text">Contact me here</p>  
+        <a class="absolute mt-10 -ml-[3.5rem]" href="mailto:hanan@uai.dk" class="text-blue-500 hover:underline">hanan@uai.dk</a>
       </div>
     </section>
   </main>
@@ -121,12 +112,15 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   }
 
   /* ===== Featured & Recent Posts Sections ===== */
+  
   #featured,
-  #recent-posts {
+  #About-me,
+  #Contact-me{
     @apply pt-12 pb-6;
   }
   #featured h2,
-  #recent-posts h2 {
+  #About-me h2,
+  #Contact-me h2{
     @apply text-2xl font-semibold tracking-wide;
   }
   .all-posts-btn-wrapper {
