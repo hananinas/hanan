@@ -25,10 +25,13 @@ title: "About me"
 <div align="center">
 <h2>Projects</h2>
 <ul>
-<div>Elusive - a startup focused on solving modern communication problems. I used React to build the web application.</div>
-<div>UAI - a platform that leverages machine learning to improve customer experiences.</div>
+
+Elusive - a startup focused on creating a place where people can come and find the most sought-after and rare sneakers on the market, and at the same time have a personal and unique shopping experience.
+
+UAI - a platform that leverages machine learning to improve customer experiences.
 </ul>
-<p>In addition to my work with Elusive and UAI, I have experience with HTML and CSS, which I have used to build websites and web applications.</p>
+<p>In addition to my work with Elusive and UAI, I have experience with HTML and CSS, which I have used to build websites and web applications as freelance work.</p>
+<p>In uni i have worked a lot with Java, so i have a lot of experience with Java as well as Python which i have mastered(mostly) since High School.</p>
 </div>
 
 ## Contact info
