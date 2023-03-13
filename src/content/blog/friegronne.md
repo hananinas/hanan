@@ -23,13 +23,13 @@ Before starting any project, it's important to understand the client's vision an
 ## Designing the Website with Figma
 
 ![old website](/blog-images/oldfriegronne.png)
-The left images is the old website to the right you can see the first Mockup
+The left image is the old website the right image is the first Mockup
 
 To create a design that would meet Friegrønne's requirements, I used Figma - a collaborative interface design tool. Figma allowed me to create a wireframe and design the website's user interface (UI) in a seamless and efficient way. I started by creating a sitemap of the website, which helped me to organize the content and structure of the website.
 
 Next, I designed the website's UI, keeping in mind Friegrønne's brand guidelines and color palette. I used a minimalist design with plenty of white space and eco-friendly imagery to create a modern and visually appealing website.
 
-The final result can seen at [friegronne.dk](https://friegronne.dk)
+The final result can be seen at [friegronne.dk](https://friegronne.dk)
 
 ## Building the Website with WordPress
 
