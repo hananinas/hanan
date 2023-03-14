@@ -1,9 +1,10 @@
 ---
 import { SITE } from "@config";
 import "../styles/base.css";
-import { inject } from '@vercel/analytics/react';
+import { inject } from '@vercel/analytics';
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+inject();
 
 export interface Props {
   title?: string;
@@ -75,7 +76,6 @@ const socialImageURL = new URL(
       )
     }
     
-    inject();
 
     <script is:inline src="/toggle-theme.js"></script>
   </head>
