@@ -1,6 +1,7 @@
 ---
 layout: ../layouts/AboutLayout.astro
 title: "About me"
+description: I'm Hanan, a software development student at ITU, and also the founder of Elusive and UAI.
 ---
 <div align="left">
 <h2></h2>

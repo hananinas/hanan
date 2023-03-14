@@ -24,7 +24,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   {
     // only display if at least one social link is enabled
     socialCount > 0 && (
-    <div  class="absolute top-0 left-5 z-50 animate__animated animate__jello sm:left-20">
+    <div  class="absolute top-0 left-5 z-50 animate__animated animate__jello md:left-20">
       <img src="images/linetop.svg" alt="">
       <Socials />
 
@@ -46,7 +46,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
 	            <img class="absolute left-200% invisible sm:visible sm:relative sm:ml-5" src="images/LineBig.svg" ><img/>
               <a class="mt-2 ml-2 sm:mt-3 sm:ml-200" href="/projects"><img src="/images/View all.svg" alt="">  </a>    
             </div>
-            <ul class="sm:grid grid-cols-3 gap-[10rem]">
+            <ul class="sm:grid grid-cols-3 gap-[10rem] sm:grid-cols-2 sm:gap-10 md:grid-cols-3 md:gap-[10rem]">
               {featuredPosts.map(({ data }) => (
                 <Card
                   href={`/projects/${slugify(data)}`}
