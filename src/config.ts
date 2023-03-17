@@ -74,7 +74,7 @@ export const SOCIALS: SocialObjects = [
   },
   {
     name: "Snapchat",
-    href: "https://github.com/satnaing/astro-paper",
+    href: "https://github.com/satnaing/astro-papesr",
     linkTitle: `${SITE.title} on Snapchat`,
     active: false,
   },
@@ -98,9 +98,9 @@ export const SOCIALS: SocialObjects = [
   },
   {
     name: "Discord",
-    href: "https://github.com/satnaing/astro-paper",
+    href: "https://discordapp.com/users/490923815401029633",
     linkTitle: `${SITE.title} on Discord`,
-    active: false,
+    active: true,
   },
   {
     name: "GitLab",
