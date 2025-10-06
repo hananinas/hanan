@@ -183,11 +183,32 @@ The way make the system do that is by giving it old data and then essentially pr
 Models in machine learning are functions that take the input and predicts the output
 
 The above example shows that given the set 
-$D^{\text{train}}$
+$D^{\text{train}}$ machine learning then consists of building a program such that $D^{\text{train}}$ takes the training data and returns a function 
+
+$
+f: \mathbb{R}^M  \rightarrow {\{0,...,9\}}
+$
+
+The proccess of learning the function $f$ from the training data is known as training phase.
+
+Again lets consider the image example if $f(x) = 5$ the algorithmic model then predicts if the image contains 5.
+
+After building our model we also want to test it we do that by taking these new observations to see how well the model performs on unseen data.
+
+We call this set $D^{\text{test}}$ known as the test set. And we can measure this using the $generalization \ error$. This quantity is key to measuring if a model is good or not further more it can tell us if an model is worse than another model. 
+
+To be noted there is also something called a $training error$ which is the average error on the training set. These two should not be mized up 
+
+![Models in machine learning real](/note-images/machine-learning/week-1/model-real.png)
+
+the above is a real example of how a model works.
+
 
 
 #### Data 
-The most important thing is to have good quality data 
+The most important thing is to have good quality data. 
+
+#TODO
 
 data has attributes 
 
