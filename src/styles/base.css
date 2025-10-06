@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@import "katex/dist/katex.min.css";
 
 @theme {
   --font-family-mono: "IBM Plex Mono", monospace;
@@ -253,4 +254,8 @@ html[data-theme="dark"] {
 }
 .all-posts-btn-wrapper {
   @apply my-8 text-center;
+}
+
+.katex-html svg {
+  height: inherit;
 }

@@ -156,12 +156,11 @@ is known as association mining or rule discovery. Other applications are:
 
 - Reinforcement learning 
 
-Reinforcement learning is when we teach a machine to think by giving it a reward for it's by using something called a reward function. 
+Reinforcement learning is when we teach a machine to think by giving it a reward for doing something. We do this by using something called a reward function. 
 
 For example a robot who has to click a button and if it clicks the button it gets a reward otherwise it is given a penalty. 
 
 The more you train it using this technique it will be better and clicking the correct button.
-
 
 
 
@@ -174,7 +173,17 @@ Where you predict the next token.
 
 ### Models in machine learning 
 
-In machine learning is a function that takes the  input and predicts the output
+Machine learning is about training a system such that it can solve a given problem by learning how to solve it. 
+
+The way make the system do that is by giving it old data and then essentially predicting the future outcome using the past.
+
+![Models in machine learning](/note-images/machine-learning/week-1/models.png)
+
+
+Models in machine learning are functions that take the input and predicts the output
+
+The above example shows that given the set 
+$D^{\text{train}}$
 
 
 #### Data 
@@ -206,4 +215,4 @@ to handle it you can exclude noisy attributes
 
 remove noise by filter
 
-Focus on what you want to get an answer for 
+Focus on what you want to get an answer for

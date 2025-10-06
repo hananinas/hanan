@@ -24,8 +24,9 @@ export default defineConfig({
           test: "Table of contents",
         },
       ],
-      remarkMath,
+      remarkMath
     ],
+    rehypePlugins: [rehypeKatex],
     shikiConfig: {
       theme: "one-dark-pro",
       wrap: true,
