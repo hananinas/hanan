@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
+import tailwind from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
@@ -7,13 +7,9 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://hananinas.xyz/",
+  site: "https://hananinas.com/",
   integrations: [
-    tailwind({
-      config: {
-        applyBaseStyles: false,
-      },
-    }),
+   
     react(),
     sitemap(),
   ],
@@ -34,6 +30,11 @@ export default defineConfig({
     extendDefaultPlugins: true,
   },
   vite: {
+    plugins: [ tailwind({
+      config: {
+        applyBaseStyles: false,
+      },
+    }),],
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },

@@ -5,12 +5,28 @@ import socialIcons from "@assets/socialIcons";
 
 export interface Props {
   centered?: boolean;
+  orientation?: "row" | "column";
+  variant?: "default" | "floating";
 }
 
-const { centered = false } = Astro.props;
+const { centered = false, orientation, variant = "default" } = Astro.props;
+
+const direction = orientation ?? (centered ? "row" : "column");
 ---
 
-<div class="flex flex-col ml-[-16.5px]" >
+<div
+  class:list={[
+    "flex",
+    direction === "row"
+      ? "flex-row items-center gap-3 sm:gap-4"
+      : "flex-col items-center gap-4",
+    centered ? "justify-center" : "",
+    !centered && direction === "column" && variant !== "floating"
+      ? "ml-[-16.5px]"
+      : "",
+    variant === "floating" ? "socials--floating" : "",
+  ]}
+>
   {
     SOCIALS.filter(social => social.active).map(social => (
       <LinkButton
@@ -25,7 +41,26 @@ const { centered = false } = Astro.props;
 </div>
 
 <style>
+    @reference "../styles/base.css";
+
   .link-button {
-    @apply p-2 hover:rotate-6 sm:p-1;
+    @apply relative flex h-11 w-11 items-center justify-center rounded-full border border-skin-line/40 bg-skin-card/30 text-skin-base transition duration-200 hover:-translate-y-0.5 hover:border-[#2F8F5B] hover:text-[#2F8F5B] dark:hover:border-[#6FCF97] dark:hover:text-[#6FCF97] sm:h-10 sm:w-10;
+  }
+  .link-button svg {
+    @apply h-5 w-5;
+  }
+
+  .socials--floating .link-button {
+    @apply bg-skin-card/40 shadow-lg shadow-skin-card/30 backdrop-blur;
+  }
+  .socials--floating .link-button::before {
+    content: "";
+    @apply absolute left-1/2 top-[-1.4rem] hidden h-6 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[#2F8F5B]/30 to-[#2F8F5B]/60 sm:block;
+  }
+  .socials--floating .link-button:first-of-type::before {
+    @apply top-[-2.5rem] h-10 from-[#2F8F5B]/0 via-[#2F8F5B]/30 to-[#2F8F5B]/70;
+  }
+  .socials--floating {
+    @apply gap-5;
   }
 </style>

@@ -78,10 +78,10 @@ export default function SearchBar({ searchList }: Props) {
           </svg>
         </span>
         <input
-          className="block w-full rounded border border-skin-fill 
-        border-opacity-40 bg-skin-fill py-3 pl-10
-        pr-3 placeholder:italic placeholder:text-opacity-75 
-        focus:border-skin-accent focus:outline-none"
+          className="block w-full rounded border border-skin-fill/40 
+        bg-skin-fill py-3 pl-10
+        pr-3 placeholder:italic placeholder:text-skin-base/75 
+        focus:border-skin-accent focus:outline-hidden"
           placeholder="Search for anything..."
           type="text"
           name="search"
@@ -103,7 +103,7 @@ export default function SearchBar({ searchList }: Props) {
         </div>
       )}
 
-      <ul>
+      <ul className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {searchResults &&
           searchResults.map(({ item, refIndex }) => (
             <Card

@@ -3,8 +3,6 @@ import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import LinkButton from "@components/LinkButton.astro";
-import Hr from "@components/Hr.astro";
 import Card from "@components/Card";
 import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
@@ -16,70 +14,112 @@ const posts = await getCollection("blog");
 
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-
 const socialCount = SOCIALS.filter(social => social.active).length;
+
 ---
 
 <Layout>
   {
-    // only display if at least one social link is enabled
     socialCount > 0 && (
-    <div  class="absolute top-0 left-5 z-50 animate__animated animate__jello md:left-20">
-      <img src="images/linetop.svg" alt="">
-      <Socials />
-
-    </div>
-     
+      <div class="floating-socials">
+        <Socials variant="floating" />
+      </div>
     )
   }
-  <Header />
-  <main id="main-content">
-    <Hero></Hero>
-   
+  <Header  />
+  <main id="main-content" class="relative overflow-hidden pb-24">
+    
+
+    <Hero />
+
     {
       featuredPosts.length > 0 && (
-        <>
-          <section id="featured" class="sm:max-w-[72rem]" >
-            <div class="flex ">
-              <span class="text-[19px] sm:text-[30px]"> <a class="text-[#6FCF97]">~/</a>projects </span>
-	            <img class="sm:hidden ml-3" width="100px" height="300px" src="images/Line.svg" ><img/>
-	            <img class="absolute left-200% invisible sm:visible sm:relative sm:ml-5" src="images/LineBig.svg" ><img/>
-              <a class="mt-2 ml-2 sm:mt-3 sm:ml-200" href="/projects"><img src="/images/View all.svg" alt="">  </a>    
-            </div>
-            <ul class="sm:grid grid-cols-3 gap-[10rem] sm:grid-cols-2 sm:gap-10 md:grid-cols-3 md:gap-[10rem]">
-              {featuredPosts.map(({ data }) => (
-                <Card
-                  href={`/projects/${slugify(data)}`}
-                  frontmatter={data}
-                  secHeading={false}
-                />
-              ))}
-            </ul>
-          </section>
-        </>
+        <section id="projects" class="section-block">
+          <div class="section-heading">
+            <h2 class="section-title">
+              <span class="section-tilde">~/</span>
+              Projects
+            </h2>
+            <a href="/projects" class="section-link">
+              <span>View all</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                class="h-4 w-4"
+                aria-hidden="true"
+              >
+                <path
+                  fill="currentColor"
+                  d="m13 5.586 4.707 4.707-9.586.001V13.7h9.586L13 18.414 14.414 19.8 21.828 12.384 14.414 4.97 13 5.586z"
+                ></path>
+              </svg>
+            </a>
+          </div>
+          <ul class="project-grid">
+            {featuredPosts.map(({ data }) => (
+              <Card
+                href={`/projects/${slugify(data)}`}
+                frontmatter={data}
+                secHeading={false}
+              />
+            ))}
+          </ul>
+        </section>
       )
     }
 
-    <section id="About-me" class="sm:max-w-[72rem]">
-      <div class="flex ">
-              <span class="text-[19px] sm:text-[30px]"> <a class="text-[#6FCF97]">~/</a>About-me </span>
-	            <img class="sm:hidden ml-3" width="100px" height="300px" src="images/Line.svg" ><img/>
-	            <img class="absolute left-200% invisible sm:visible sm:relative sm:ml-5" src="images/LineBig.svg" ><img/>
+    <section id="about" class="section-block">
+      <div class="section-heading">
+        <h2 class="section-title">
+          <span class="section-tilde">~/</span>
+          About me
+        </h2>
+        <a href="/about" class="section-link">
+          <span>Read more</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            class="h-4 w-4"
+            aria-hidden="true"
+          >
+            <path
+              fill="currentColor"
+              d="m13 5.586 4.707 4.707-9.586.001V13.7h9.586L13 18.414 14.414 19.8 21.828 12.384 14.414 4.97 13 5.586z"
+            ></path>
+          </svg>
+        </a>
       </div>
-      <p class="mt-5 sm:text-[20px]">I'm Hanan, a software development student at ITU, and also the founder of Elusive and UAI. <br>My goal is to use my software skills to develop innovative solutions for modern problems. <br> I am passionate about working at the intersection of technology and business.</p>
-      <a href="/about"><button class="border-[1px]	border-[#6FCF97] h-[37px] w-[148px] mt-10 font-code sm:w-[200px]">Read more</button></a>
+      <div class="about-panel">
+        <p>
+          I’m Hanan, a software development student at ITU, and the founder of
+          Elusive and UAI. I love transforming ambitious ideas into digital
+          products that feel thoughtful and useful.
+        </p>
+        <p>
+          My focus is building solutions that connect technology with business
+          outcomes. I’m happiest when I’m collaborating on products that help
+          people move faster and think bigger.
+        </p>
+      </div>
     </section>
 
-    <section id="Conact-me" class="sm:max-w-[72rem] sm:h-[30rem]">
-      <div class="flex ">
-              <span class="text-[19px] sm:text-[30px]"> <a class="text-[#6FCF97]">~/</a>Contact </span>
-	            <img class="sm:hidden ml-3" width="100px" height="300px" src="images/Line.svg" ><img/>
-	            <img class="absolute left-200% invisible sm:visible sm:relative sm:ml-5" src="images/LineBig.svg" ><img/>
+    <section id="contact" class="section-block">
+      <div class="section-heading">
+        <h2 class="section-title">
+          <span class="section-tilde">~/</span>
+          Contact
+        </h2>
       </div>
-      <p class="sm:absolute sm:mt-32 sm:w-[500px] sm:text-[20px]">I’m interested in freelance opportunities or part time work. However, if you have other request or question, don’t hesitate to contact me</p>
-      <div class="border-[1px] h-32	border-[#6FCF97] sm:w-[185px] sm:h-[141px] sm:absolute sm:ml-[40rem] sm:mt-[5rem] text-center">
-        <p class="text">Contact me here</p>  
-        <a class="absolute mt-10 -ml-[3.5rem]" href="mailto:hanan@uai.dk" class="text-blue-500 hover:underline">hanan@uai.dk</a>
+      <div class="contact-wrap">
+        <p class="contact-copy">
+          I’m currently open to freelance projects, part-time roles, and
+          meaningful collaborations. If you have an opportunity or a question,
+          I’d love to hear about it.
+        </p>
+        <div class="contact-card">
+          <span class="contact-label">Let’s build something</span>
+          <a href="mailto:hanan@uai.dk" class="contact-mail">hanan@uai.dk</a>
+        </div>
       </div>
     </section>
   </main>
@@ -87,44 +127,22 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   <Footer />
 </Layout>
 
-<style>
-  /* ===== Hero Section ===== */
-  
-  #hero {
-    @apply pt-8 pb-6;
-  }
-  #hero h1 {
-    @apply my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl;
-  }
-  #hero .rss-link {
-    @apply mb-6;
-  }
-  #hero .rss-icon {
-    @apply mb-2 h-6 w-6 scale-110 fill-skin-accent sm:mb-3 sm:scale-125;
-  }
-  #hero p {
-    @apply my-2;
-  }
-  .social-wrapper {
-    @apply mt-4 flex flex-col sm:flex-row sm:items-center;
-  }
-  .social-links {
-    @apply mr-2 mb-1 whitespace-nowrap sm:mb-0;
-  }
 
-  /* ===== Featured & Recent Posts Sections ===== */
-  
-  #featured,
-  #About-me,
-  #Contact-me{
-    @apply pt-12 pb-6;
+<style>
+    @reference "../styles/base.css";
+
+  .floating-socials {
+    @apply pointer-events-auto absolute left-1 top-0 z-30 hidden flex-col items-center sm:left-4 sm:flex md:left-8;
   }
-  #featured h2,
-  #About-me h2,
-  #Contact-me h2{
-    @apply text-2xl font-semibold tracking-wide;
+  .floating-socials::before {
+    content: "";
+    @apply absolute left-1/2 top-0 h-[320px] w-px -translate-x-1/2 bg-gradient-to-b from-[#2F8F5B]/0 via-[#2F8F5B]/20 to-[#2F8F5B]/70 md:h-[420px];
   }
-  .all-posts-btn-wrapper {
-    @apply my-8 text-center;
+  .floating-socials::after {
+    content: "";
+    @apply absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#2F8F5B]/70 bg-skin-fill shadow-[0_0_20px_rgba(47,143,91,0.45)];
+  }
+  .floating-socials :global(.socials--floating) {
+    @apply mt-24 md:mt-28;
   }
 </style>
