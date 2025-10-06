@@ -26,7 +26,7 @@ if (!note) {
   throw new Error(`Note not found for slug: ${noteSlug}`);
 }
 
-const { Content } = await note.render();
+const { Content, headings } = await note.render();
 
 const pageTitle = note.data.title || `${note.data.course} – ${note.data.week}`;
 const pageDescription = `${note.data.semester} · ${note.data.course} · ${note.data.week}`;
@@ -66,9 +66,31 @@ const backHref = "/notes";
         )}
       </p>
     </header>
-    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
-      <Content />
-    </article>
+
+    <div class="note-layout">
+      <!-- Table of Contents Sidebar -->
+      {headings.length > 0 && (
+        <aside class="toc-sidebar">
+          <nav class="toc-nav">
+            <h2 class="toc-title">On this page</h2>
+            <ul class="toc-list">
+              {headings.map((heading) => (
+                <li class={`toc-item toc-item--${heading.depth}`}>
+                  <a href={`#${heading.slug}`} class="toc-link">
+                    {heading.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
+      )}
+
+      <!-- Main Content -->
+      <article id="article" role="article" class="prose note-article">
+        <Content />
+      </article>
+    </div>
   </main>
   <Footer />
 </Layout>
@@ -77,7 +99,7 @@ const backHref = "/notes";
   @reference "../../styles/base.css";
 
   #main-content {
-    @apply mx-auto mb-24 flex max-w-3xl flex-col gap-6 px-4 sm:px-6;
+    @apply mx-auto mb-24 flex max-w-7xl flex-col gap-6 px-4 sm:px-6;
   }
 
   .back-link {
@@ -108,6 +130,57 @@ const backHref = "/notes";
     @apply ml-2 text-xs uppercase tracking-[0.25em] text-skin-base/70;
   }
 
+  .note-layout {
+    @apply relative mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_250px];
+  }
+
+  .note-article {
+    @apply mx-0 max-w-3xl;
+  }
+
+  /* Table of Contents Styles */
+  .toc-sidebar {
+    @apply hidden lg:block;
+    order: 2;
+  }
+
+  .toc-nav {
+    @apply sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto rounded-lg border border-skin-border/50 bg-skin-card/30 p-4 backdrop-blur;
+  }
+
+  .toc-title {
+    @apply mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-skin-base/70;
+  }
+
+  .toc-list {
+    @apply space-y-2 text-sm;
+  }
+
+  .toc-item {
+    @apply list-none;
+  }
+
+  .toc-item--2 {
+    @apply ml-0;
+  }
+
+  .toc-item--3 {
+    @apply ml-4;
+  }
+
+  .toc-item--4 {
+    @apply ml-8;
+  }
+
+  .toc-link {
+    @apply block py-1 text-skin-base/70 transition-colors duration-200 hover:text-skin-accent;
+    text-decoration: none;
+  }
+
+  .toc-link.active {
+    @apply font-semibold text-skin-accent;
+  }
+
   .note-content {
     @apply mt-4 rounded-2xl border border-skin-border bg-skin-fill/80 px-6 py-6 shadow-lg shadow-skin-border/10 backdrop-blur;
   }
@@ -119,4 +192,60 @@ const backHref = "/notes";
   .note-content li {
     @apply marker:text-[#D90416];
   }
+
+  /* Scrollbar for TOC */
+  .toc-nav::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  .toc-nav::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .toc-nav::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-skin-border/50;
+  }
+
+  .toc-nav::-webkit-scrollbar-thumb:hover {
+    @apply bg-skin-border;
+  }
 </style>
+
+<script>
+  // Highlight active section in TOC
+  function updateActiveSection() {
+    const sections = document.querySelectorAll('article h2, article h3, article h4');
+    const tocLinks = document.querySelectorAll('.toc-link');
+    
+    let currentActive = '';
+    
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= 150 && rect.top >= -100) {
+        currentActive = section.id;
+      }
+    });
+    
+    tocLinks.forEach((link) => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${currentActive}`) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  // Update on scroll
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateActiveSection();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Update on load
+  document.addEventListener('DOMContentLoaded', updateActiveSection);
+</script>
