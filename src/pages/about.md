@@ -1,40 +1,27 @@
 ---
 layout: ../layouts/AboutLayout.astro
 title: "About me"
-description: I'm Hanan, a software development student at ITU, and also the founder of Elusive and UAI.
+description: I'm Hanan, a Master's student in Computer Science and Engineering at DTU, and the founder of Elusive and UAI.
 ---
-<div align="left">
-<h2></h2>
-<p>I'm Hanan, a software development student at ITU, and also the founder of Elusive and UAI. My goal is to use my software skills to develop innovative solutions for modern problems. I am passionate about working at the intersection of technology and business.</p>
-</div>
 
-<div align="center">
-<h2>Skills</h2>
-<ul>
-<li>React</li>
-<li>Other JavaScript Frameworks</li>
-<li>Shopify</li>
-<li>Python</li>
-<li>HTML</li>
-<li>CSS</li>
-<li>Wordpress</li>
-<li>Java</li>
+I'm Hanan, a Master's student in Computer Science and Engineering at the Technical University of Denmark (DTU). I founded **Elusive** and **UAI** to build human-centred products that fuse rigorous engineering with entrepreneurial speed. My current focus is blending advanced computation from my degree with the practical realities of shipping software that people genuinely enjoy using.
 
-</ul>
-</div>
+I thrive when I can connect strategy, deep technical work, and thoughtful design. Whether it's iterating on a startup idea or refining a production system, I gravitate toward projects where I can research, prototype, and deliver measurable outcomes.
 
-<div align="center">
-<h2>Projects</h2>
-<ul>
+## Skills
+- React & TypeScript component systems
+- Modern JavaScript frameworks and tooling
+- Shopify and ecommerce integrations
+- Python for data pipelines & automation
+- HTML & CSS for design systems
+- Java for backend and academic projects
 
-Elusive - a startup focused on creating a place where people can come and find the most sought-after and rare sneakers on the market, and at the same time have a personal and unique shopping experience.
+## Projects & Experience
+- **Elusive** – curating high-demand sneakers and creating a tailored shopping experience for collectors.
+- **UAI** – building machine-learning driven tools to improve customer journeys, from insight gathering to automation.
+- Freelance work – crafting fast, accessible web applications and marketing sites for clients across industries, always balancing aesthetics with maintainability.
 
-UAI - a platform that leverages machine learning to improve customer experiences.
-</ul>
-<p>In addition to my work with Elusive and UAI, I have experience with HTML and CSS, which I have used to build websites and web applications as freelance work.</p>
-<p>In uni i have worked a lot with Java, so i have a lot of experience with Java as well as Python which i have mastered(mostly) since High School.</p>
-</div>
+In addition to venture work, my university research projects centre on algorithms, data-intensive systems, and responsible AI. I enjoy taking those explorations back into my startups and consulting work to keep everything rooted in real-world needs.
 
-## Contact info
-If you're interested in learning more about me or my work, please feel free to reach out via email at [hanan@uai.dk](mailto:hanan@uai.dk).
-</div>
+## Contact
+If you'd like to collaborate or learn more, reach me at [hanan@uai.dk](mailto:hanan@uai.dk).

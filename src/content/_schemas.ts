@@ -14,4 +14,21 @@ export const blogSchema = z
   })
   .strict();
 
+export const notesSchema = z
+  .object({
+    title: z.string(),
+    semester: z.string(),
+    semesterOrder: z.number().optional(),
+    timeframe: z.string(),
+    course: z.string(),
+    courseCode: z.string().optional(),
+    courseOrder: z.number().optional(),
+    week: z.string(),
+    weekOrder: z.number().optional(),
+    focus: z.string().optional(),
+    draft: z.boolean().optional(),
+  })
+  .strict();
+
 export type BlogFrontmatter = z.infer<typeof blogSchema>;
+export type NotesFrontmatter = z.infer<typeof notesSchema>;

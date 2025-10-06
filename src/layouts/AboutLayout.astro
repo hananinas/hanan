@@ -6,10 +6,19 @@ import Header from "@components/Header.astro";
 import Layout from "./Layout.astro";
 import "../styles/base.css";
 
+type SemesterNotes = {
+  name: string;
+  subjects: {
+    name: string;
+    notes?: string[];
+  }[];
+};
+
 export interface Props {
   frontmatter: {
     title: string;
     description?: string;
+    semesters?: SemesterNotes[];
   };
 }
 
@@ -23,6 +32,43 @@ const { frontmatter } = Astro.props;
     <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0">
       <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
       <slot />
+      {frontmatter.semesters && frontmatter.semesters.length > 0 && (
+        <section class="mt-16 space-y-8">
+          <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">
+            Master's notes
+          </h2>
+          {frontmatter.semesters.map((semester) => (
+            <article class="space-y-4" key={semester.name}>
+              <h3 class="text-lg font-semibold text-skin-base sm:text-xl">
+                {semester.name}
+              </h3>
+              <div class="grid gap-4 sm:grid-cols-2">
+                {semester.subjects.map((subject) => (
+                  <div
+                    class="rounded-lg border border-skin-border bg-skin-fill p-4 shadow-sm"
+                    key={subject.name}
+                  >
+                    <h4 class="text-base font-semibold text-skin-base">
+                      {subject.name}
+                    </h4>
+                    {subject.notes && subject.notes.length > 0 ? (
+                      <ul class="mt-2 list-disc space-y-1 pl-4 text-sm">
+                        {subject.notes.map((note) => (
+                          <li key={note}>{note}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p class="mt-2 text-sm text-skin-base opacity-70">
+                        Notes coming soon.
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </section>
+      )}
     </section>
   </main>
   <Footer />

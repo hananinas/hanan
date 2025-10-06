@@ -1,0 +1,279 @@
+---
+import { SITE } from "@config";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const pageTitle = "Master's Notes";
+const pageDescription = "Weekly breakdowns from my DTU Computer Science & Engineering master's, organised by semester and course.";
+
+const rawNotes = await getCollection("notes", ({ data }) => data.draft !== true);
+
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+const createPreview = (markdown: string, limit = 240) => {
+  const withoutCodeBlocks = markdown.replace(/```[\s\S]*?```/g, "");
+  const plainText = withoutCodeBlocks
+    .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+    .replace(/[*_~`>#]/g, "")
+    .replace(/^-\s+/gm, "")
+    .replace(/\r?\n/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (plainText.length === 0) {
+    return "Detailed notes coming soon.";
+  }
+
+  return plainText.length > limit
+    ? `${plainText.slice(0, limit - 1).trimEnd()}…`
+    : plainText;
+};
+
+const notes = rawNotes.map((entry) => ({
+  ...entry.data,
+  slug: entry.slug,
+  preview: createPreview(entry.body ?? ""),
+}));
+
+const semestersMap = new Map<
+  string,
+  {
+    id: string;
+    name: string;
+    timeframe: string;
+    order: number;
+    courses: Map<
+      string,
+      {
+        id: string;
+        name: string;
+        code?: string;
+        order: number;
+        weeks: Array<
+          (typeof notes)[number] & {
+            id: string;
+          }
+        >;
+      }
+    >;
+  }
+>();
+
+for (const note of notes) {
+  const semesterKey = note.semester;
+  let semesterGroup = semestersMap.get(semesterKey);
+
+  if (!semesterGroup) {
+    semesterGroup = {
+      id: slugify(note.semester),
+      name: note.semester,
+      timeframe: note.timeframe,
+      order: note.semesterOrder ?? Number.MAX_SAFE_INTEGER,
+      courses: new Map(),
+    };
+
+    semestersMap.set(semesterKey, semesterGroup);
+  }
+
+  const courseKey = note.course;
+  let courseGroup = semesterGroup.courses.get(courseKey);
+
+  if (!courseGroup) {
+    const courseSlugSource = `${semesterGroup.id}-${note.course}`;
+    courseGroup = {
+      id: slugify(courseSlugSource),
+      name: note.course,
+      code: note.courseCode,
+      order: note.courseOrder ?? Number.MAX_SAFE_INTEGER,
+      weeks: [],
+    };
+
+    semesterGroup.courses.set(courseKey, courseGroup);
+  }
+
+  courseGroup.weeks.push({
+    ...note,
+    id: slugify(`${courseGroup.id}-${note.week}`),
+  });
+}
+
+const semesters = Array.from(semestersMap.values())
+  .sort((a, b) => a.order - b.order)
+  .map((semester) => ({
+    ...semester,
+    courses: Array.from(semester.courses.values())
+      .sort((a, b) => a.order - b.order)
+      .map((course) => ({
+        ...course,
+        weeks: course.weeks.sort(
+          (a, b) =>
+            (a.weekOrder ?? Number.MAX_SAFE_INTEGER) -
+            (b.weekOrder ?? Number.MAX_SAFE_INTEGER)
+        ),
+      })),
+  }));
+
+const hasNotes = semesters.length > 0;
+---
+
+<Layout title={`${pageTitle} | ${SITE.title}`} description={pageDescription}>
+  <Header activeNav="notes" />
+  <Breadcrumbs />
+  <main id="main-content">
+    <section class="hero">
+      <h1 class="text-3xl font-semibold tracking-wide sm:text-4xl">{pageTitle}</h1>
+      <p class="mt-3 max-w-2xl text-base text-skin-base/80 sm:text-lg">
+        {pageDescription}
+      </p>
+      <p class="mt-6 text-sm uppercase tracking-[0.35em] text-[#D90416]">
+        Always iterating · Learning in public
+      </p>
+    </section>
+
+    {hasNotes ? (
+      semesters.map((semester) => (
+        <section class="semester" id={semester.id}>
+          <header class="semester__header">
+            <h2 class="text-2xl font-semibold text-skin-base sm:text-3xl">
+              {semester.name}
+            </h2>
+            <span class="semester__timeframe">{semester.timeframe}</span>
+          </header>
+
+          <div class="courses">
+            {semester.courses.map((course) => (
+              <article class="course-card" id={course.id}>
+                <header class="course-card__header">
+                  <h3 class="course-card__title">{course.name}</h3>
+                  {course.code && (
+                    <span class="course-card__code">{course.code}</span>
+                  )}
+                </header>
+                <div class="course-card__weeks">
+                  {course.weeks.map((week) => (
+                    <div class="week-block" id={week.id}>
+                      <div class="week-block__summary">
+                        <span class="week-block__label">{week.week}</span>
+                        {week.focus && (
+                          <span class="week-block__focus">{week.focus}</span>
+                        )}
+                      </div>
+                      <div class="week-block__content">
+                        <p>{week.preview}</p>
+                        <a class="week-block__cta focus-outline" href={`/notes/${week.slug}`}>
+                          View full notes
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))
+    ) : (
+      <section class="empty-state">
+        <p>No notes published yet. Come back soon!</p>
+      </section>
+    )}
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  @reference "../../styles/base.css";
+
+  #main-content {
+    @apply mx-auto mb-20 flex max-w-[72rem] flex-col gap-16 px-4 sm:px-6;
+  }
+
+  .hero {
+    @apply mt-6 flex flex-col gap-3 sm:mt-10;
+  }
+
+  .empty-state {
+    @apply mt-16 rounded-2xl border border-dashed border-skin-border/60 bg-skin-fill/60 px-6 py-12 text-center text-sm text-skin-base/70;
+  }
+
+  .semester {
+    @apply space-y-6;
+  }
+
+  .semester__header {
+    @apply flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between;
+  }
+
+  .semester__timeframe {
+    @apply text-sm font-semibold uppercase tracking-[0.35em] text-skin-base/60;
+  }
+
+  .courses {
+    @apply grid gap-6 sm:grid-cols-2;
+  }
+
+  .course-card {
+    @apply flex flex-col gap-4 rounded-2xl border border-skin-border bg-skin-fill/80 p-6 shadow-lg shadow-skin-border/10 backdrop-blur;
+  }
+
+  .course-card__header {
+    @apply flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between;
+  }
+
+  .course-card__title {
+    @apply text-lg font-semibold text-skin-base sm:text-xl;
+  }
+
+  .course-card__code {
+    @apply inline-flex items-center rounded-full border border-skin-border/80 bg-skin-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-skin-base/80;
+  }
+
+  .course-card__weeks {
+    @apply flex flex-col gap-3;
+  }
+
+  .week-block {
+    @apply rounded-xl border border-skin-border bg-skin-fill/70 shadow-sm transition;
+  }
+
+  .week-block:hover {
+    @apply border-[#D90416]/60;
+  }
+
+  .week-block__summary {
+    @apply flex items-center justify-between gap-4 rounded-t-xl px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-skin-base;
+  }
+
+  .week-block__label {
+    @apply text-skin-base;
+  }
+
+  .week-block__focus {
+    @apply text-xs font-medium text-skin-base/70;
+  }
+
+  .week-block__content {
+    @apply border-t border-skin-border/60 px-5 pb-5 pt-3 text-skin-base/90;
+  }
+
+  .week-block__content p {
+    @apply text-sm leading-relaxed;
+  }
+
+  .week-block__cta {
+    @apply mt-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.35em] text-[#D90416] transition hover:-translate-y-[1px];
+  }
+
+  @media (max-width: 640px) {
+    .courses {
+      @apply grid-cols-1;
+    }
+  }
+</style>

@@ -1,0 +1,122 @@
+---
+import { SITE } from "@config";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const notes = await getCollection("notes", ({ data }) => data.draft !== true);
+
+  return notes.map((note) => ({
+    params: { noteSlug: note.slug },
+  }));
+}
+
+const noteSlugParam = Astro.params.noteSlug;
+const noteSlug = Array.isArray(noteSlugParam)
+  ? noteSlugParam.join("/")
+  : noteSlugParam ?? "";
+
+const allNotes = await getCollection("notes", ({ data }) => data.draft !== true);
+const note = allNotes.find((entry) => entry.slug === noteSlug);
+
+if (!note) {
+  throw new Error(`Note not found for slug: ${noteSlug}`);
+}
+
+const { Content } = await note.render();
+
+const pageTitle = note.data.title || `${note.data.course} – ${note.data.week}`;
+const pageDescription = `${note.data.semester} · ${note.data.course} · ${note.data.week}`;
+const backHref = "/notes";
+---
+
+<Layout title={`${pageTitle} | ${SITE.title}`} description={pageDescription}>
+ 
+  <Header activeNav="notes" />
+
+  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
+    <button
+      class="focus-outline mt-8 mb-2 flex hover:opacity-75"
+      onclick="history.back()"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg"
+        ><path
+          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        ></path>
+      </svg><span>Go back</span>
+    </button>
+  </div>
+ 
+  <main id="main-content">
+
+    <header class="note-hero">
+      <p class="note-hero__eyebrow">{note.data.semester} · {note.data.timeframe}</p>
+      <h1 class="note-hero__title">{pageTitle}</h1>
+      <p class="note-hero__meta">
+        {note.data.course}
+        {note.data.courseCode && (
+          <span class="note-hero__code">{note.data.courseCode}</span>
+        )}
+        · {note.data.week}
+        {note.data.focus && (
+          <span class="note-hero__focus">Focus: {note.data.focus}</span>
+        )}
+      </p>
+    </header>
+    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
+      <Content />
+    </article>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  @reference "../../styles/base.css";
+
+  #main-content {
+    @apply mx-auto mb-24 flex max-w-3xl flex-col gap-6 px-4 sm:px-6;
+  }
+
+  .back-link {
+    @apply text-xs font-semibold uppercase tracking-[0.35em] text-[#D90416] transition hover:-translate-y-[1px];
+  }
+
+  .note-hero {
+    @apply flex flex-col gap-2 pt-4;
+  }
+
+  .note-hero__eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.35em] text-skin-base/60;
+  }
+
+  .note-hero__title {
+    @apply text-3xl font-semibold text-skin-base sm:text-4xl;
+  }
+
+  .note-hero__meta {
+    @apply flex flex-wrap items-center gap-2 text-sm text-skin-base/80;
+  }
+
+  .note-hero__code {
+    @apply rounded-full border border-skin-border/70 bg-skin-fill/80 px-2 py-[2px] text-[0.625rem] font-semibold uppercase tracking-[0.35em];
+  }
+
+  .note-hero__focus {
+    @apply ml-2 text-xs uppercase tracking-[0.25em] text-skin-base/70;
+  }
+
+  .note-content {
+    @apply mt-4 rounded-2xl border border-skin-border bg-skin-fill/80 px-6 py-6 shadow-lg shadow-skin-border/10 backdrop-blur;
+  }
+
+  .note-content ul {
+    @apply list-disc pl-6;
+  }
+
+  .note-content li {
+    @apply marker:text-[#D90416];
+  }
+</style>

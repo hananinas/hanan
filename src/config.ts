@@ -1,9 +1,9 @@
 import type { SocialObjects } from "./types";
 
 export const SITE = {
-  website: "https://hananinas.xyz/",
+  website: "https://hananinas.com/",
   author: "Abdul Hanan",
-  desc: "I'm Hanan, a software development student at ITU, and also the founder of Elusive and UAI.",
+  desc: "I'm Hanan, a DTU Master's student in Computer Science & Engineering building human-centred products through Elusive and UAI.",
   title: "Hanan",
   ogImage: "hanan.png",
   lightAndDarkMode: true,
