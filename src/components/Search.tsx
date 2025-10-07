@@ -7,7 +7,10 @@ import type { BlogFrontmatter } from "@content/_schemas";
 export type SearchItem = {
   title: string;
   description: string;
-  data: BlogFrontmatter;
+  data: any; // broaden to allow notes frontmatter differences
+  type: "blog" | "note";
+  slug: string;
+  content?: string; // searchable body/content
 };
 
 interface Props {
@@ -31,7 +34,7 @@ export default function SearchBar({ searchList }: Props) {
   };
 
   const fuse = new Fuse(searchList, {
-    keys: ["title", "description"],
+    keys: ["title", "description", "content"], // include body/content
     includeMatches: true,
     minMatchCharLength: 2,
     threshold: 0.5,
@@ -105,13 +108,19 @@ export default function SearchBar({ searchList }: Props) {
 
       <ul className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {searchResults &&
-          searchResults.map(({ item, refIndex }) => (
-            <Card
-              href={`/projects/${slugify(item.data)}`}
-              frontmatter={item.data}
-              key={`${refIndex}-${slugify(item.data)}`}
-            />
-          ))}
+          searchResults.map(({ item, refIndex }) => {
+            const href =
+              item.type === "note"
+                ? `/notes/${item.slug}`
+                : `/projects/${item.slug}`; // retain original blog base
+            return (
+              <Card
+                href={href}
+                frontmatter={item.data}
+                key={`${refIndex}-${item.slug}`}
+              />
+            );
+          })}
       </ul>
     </>
   );

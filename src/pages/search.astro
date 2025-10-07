@@ -6,16 +6,39 @@ import Main from "@layouts/Main.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Search from "@components/Search";
+import slugify from "@utils/slugify";
 
 // Retrieve all articles
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 
-// List of items to search in
-const searchList = posts.map(({ data }) => ({
-  title: data.title,
-  description: data.description,
-  data,
-}));
+// Retrieve all notes (assumes a 'notes' collection exists)
+let notes: any[] = [];
+try {
+  notes = await getCollection("notes", ({ data }) => !data.draft);
+} catch {
+  notes = [];
+}
+
+// Build unified search list including body content to improve note matching
+const searchList = [
+  ...posts.map((entry) => ({
+    title: entry.data.title,
+    description: entry.data.description ?? "",
+    data: entry.data,
+    type: "blog",
+    slug: entry.slug || entry.data.slug || slugify(entry.data.title),
+    content: entry.body, // used by Fuse
+  })),
+  ...notes.map((entry) => ({
+    title: entry.data.title,
+    description: entry.data.description ?? "",
+    data: entry.data,
+    type: "note",
+    slug: entry.slug || entry.data.slug || slugify(entry.data.title),
+    content: entry.body,
+  })),
+];
+
 ---
 
 <Layout title={`Search | ${SITE.title}`}>

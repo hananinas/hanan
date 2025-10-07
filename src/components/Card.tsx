@@ -58,7 +58,7 @@ export default function Card({ href = "#", frontmatter, secHeading = true }: Pro
             )}
 
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#2F8F5B] dark:text-[#D9B95B]">
-              <span>Open project</span>
+              <span>View more</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
