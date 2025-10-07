@@ -176,3 +176,84 @@ where $\hat{\sigma}_x$ and $\hat{\sigma}_y$ are the sample standard deviations o
 - $\rho_{xy} = 0$: No linear relationship
   
 
+A correlation of 0 means that x tells us nothing about y, a positive correlation tells us that when x is large y is also likely to be large and the opposite is true if theres a negative correlation y is going to be small if x is large.
+
+### Distance Metrics
+
+Theres no simple definition of distance except that it is a function of observations $x,y$ such that if the value is large if they are not very similar and short if they are very similar.
+
+**Formal Properties of a Metric:**
+
+A proper distance measure $d$ should satisfy:
+
+1. **Non-negativity**: $d(x, y) \geq 0$
+2. **Identity of indiscernibles**: $d(x, y) = 0$ if and only if $x = y$
+3. **Symmetry**: $d(x, y) = d(y, x)$
+4. **Triangle inequality**: $d(x, y) \leq d(x, z) + d(z, y)$
+
+The triangle inequality states that the direct distance between two points is never greater than going through an intermediate point. For example, the distance from home to work is not greater than the distance from home to the bakery plus the distance from the bakery to work.
+
+**Distance from Norms:**
+
+A common way to define distances is using **norms**. A norm $\|x\|$ is the magnitude of a vector and must satisfy:
+
+1. **Non-negativity**: $\|x\| > 0$ if $x \neq 0$
+2. **Scaling**: $\|ax\| = |a|\|x\|$
+3. **Triangle inequality**: $\|x + y\| \leq \|x\| + \|y\|$
+
+We can define distance from a norm as:
+
+$$d(x, y) = \|x - y\|$$
+
+
+#### Euclidean Distance
+
+The most common distance metric, measuring the straight-line distance between two points:
+
+$$d(x, y) = \sqrt{\sum_{j=1}^{M} (x_j - y_j)^2}$$
+
+where $x$ and $y$ are $M$-dimensional vectors.
+
+#### Manhattan Distance (L1 Norm)
+
+Sum of absolute differences along each dimension:
+
+$$d_1(x, y) = \|x - y\|_1 = \sum_{j=1}^{M} |x_j - y_j|$$
+
+Also called "taxicab distance" or "city block distance" because it's like traveling along a grid of streets.
+
+#### Minkowski Distance (Lp Norm)
+
+A generalization that includes both Euclidean and Manhattan distances:
+
+$$d_p(x, y) = \left(\sum_{j=1}^{M} |x_j - y_j|^p\right)^{1/p}$$
+
+**Special cases:**
+- $p = 1$: Manhattan distance
+- $p = 2$: Euclidean distance  
+- $p \to \infty$: Chebyshev distance (maximum difference): $d_\infty(x, y) = \max_j |x_j - y_j|$
+
+**Effect of p:** As $p$ increases, the distance metric becomes less sensitive to differences in individual dimensions and more dominated by the largest difference.
+
+#### Mahalanobis Distance
+
+Unlike the previous metrics, Mahalanobis distance takes into account the **covariance structure** of the data:
+
+$$d_M(x, y) = \sqrt{(x - y)^T \Sigma^{-1} (x - y)}$$
+
+where $\Sigma$ is the covariance matrix of the dataset.
+
+**Key properties:**
+- If $\Sigma = I$ (identity matrix), it reduces to Euclidean distance
+- Accounts for correlations between variables
+- Scale-invariant (adjusts for different variances in each dimension)
+
+**Intuition:** The Mahalanobis distance is **lower** when two points lie along the direction where the data naturally varies (within the "point cloud"). 
+
+**Example interpretation:**
+- Two points might have the same Euclidean distance (~5.65)
+- But if one pair lies along the main axis of variation in the data (blue points): $d_M = 4.15$
+- While another pair lies perpendicular to the variation (red points): $d_M = 13$
+- The Mahalanobis distance captures that movement along the natural spread of data is "cheaper" than movement against it
+
+This makes Mahalanobis distance useful when features have different scales or are correlated.
