@@ -1,24 +1,20 @@
 {
   "main": {
-    "id": "41e1c8073bf989d0",
+    "id": "e8cc745255e31493",
     "type": "split",
     "children": [
       {
-        "id": "841d947990f4e6b9",
+        "id": "1975731dd3b5b463",
         "type": "tabs",
         "children": [
           {
-            "id": "393b21b28c2618c5",
+            "id": "d02b8ec20e7cb4e1",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "semester-1/machine-learning/week-02.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "week-02"
+              "title": "New tab"
             }
           }
         ]
@@ -27,15 +23,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "01821f79bdeac2f7",
+    "id": "28bac4ddbc91cabc",
     "type": "split",
     "children": [
       {
-        "id": "c305d353cd8288ba",
+        "id": "a07a5de93338d479",
         "type": "tabs",
         "children": [
           {
-            "id": "81585f314d399c13",
+            "id": "1df1b3e92be0b23a",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -48,7 +44,7 @@
             }
           },
           {
-            "id": "5b3825fbfe9291c7",
+            "id": "e8b32927af0f2b62",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -65,7 +61,7 @@
             }
           },
           {
-            "id": "c79bcfd7506485aa",
+            "id": "5d6d22fb04453e47",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -81,20 +77,19 @@
     "width": 300
   },
   "right": {
-    "id": "eab7f9335f8dc091",
+    "id": "eb18d7585b6c91db",
     "type": "split",
     "children": [
       {
-        "id": "d5594b3a1c8f2358",
+        "id": "d6df47b6d8208b25",
         "type": "tabs",
         "children": [
           {
-            "id": "1a8c807317158300",
+            "id": "7df8f6f0cc2359a2",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "semester-1/machine-learning/week-02.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,25 +99,24 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for week-02"
+              "title": "Backlinks"
             }
           },
           {
-            "id": "b05e415c7dcbfc8d",
+            "id": "b0f8811d5519deae",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "semester-1/machine-learning/week-02.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from week-02"
+              "title": "Outgoing links"
             }
           },
           {
-            "id": "2307774536ae2de7",
+            "id": "1b6f1b34713aa877",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -137,18 +131,17 @@
             }
           },
           {
-            "id": "233418d7f42c08dd",
+            "id": "c80f8072c1fb1067",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "semester-1/machine-learning/week-02.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of week-02"
+              "title": "Outline"
             }
           }
         ]
@@ -169,11 +162,12 @@
       "bases:Create new base": false
     }
   },
-  "active": "393b21b28c2618c5",
+  "active": "1df1b3e92be0b23a",
   "lastOpenFiles": [
-    "semester-1/machine-learning/week-03.md",
-    "semester-1/machine-learning/week-02 copy.md",
-    "semester-1/machine-learning/week-01.md",
-    "semester-1/Applied AI for entrepreneurs/week-01.md"
+    "src/content/notes/semester-1/machine-learning/week-03.md",
+    "src/content/notes/semester-1/machine-learning/week-02 copy.md",
+    "public/note-images/machine-learning/week-2/corr.png",
+    "public/note-images/machine-learning/week-2/Screenshot From 2025-10-07 12-02-38.png",
+    "public/note-images/machine-learning/week-2"
   ]
 }
