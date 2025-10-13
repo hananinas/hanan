@@ -188,3 +188,183 @@ $$
 - Concrete examples (triangles, counting letters) anchor abstract notions.
 
 
+
+
+## Exercises
+
+### Exercise 1: Graph Encoding Validation
+
+**Problem**: Describe how one can check that a word w encodes an undirected graph.
+
+---
+
+**Solution**:
+
+**Encoding assumption.**
+A word w ∈ {0,1}* encodes an undirected graph if it represents the upper triangle of a symmetric adjacency matrix for some n-vertex graph.
+
+**Validation steps.**
+1. **Length check**: Verify that |w| = n(n-1)/2 for some positive integer n
+   - Solve the equation: |w| = n(n-1)/2
+   - Check if n = (1 + √(1 + 8|w|))/2 is a positive integer
+
+2. **Format verification**: Each bit in w must be either 0 or 1 (automatically satisfied for binary strings)
+
+3. **Implicit symmetry**: Since we store only the upper triangle, the symmetry property A[i,j] = A[j,i] is guaranteed by construction
+
+**Decision rule.**
+The word w encodes a valid undirected graph **iff**
+$$\boxed{|w| = \frac{n(n-1)}{2} \text{ for some positive integer } n}$$
+
+---
+
+### Exercise 2: Edge Presence Check
+
+**Problem**: If w encodes an undirected graph, describe how one can check whether a certain edge {i, j}, where j > i, is present. Avoid reconstructing the adjacency matrix from w.
+
+---
+
+**Solution**:
+
+**Encoding assumption.**
+For a graph on n vertices, let A be its symmetric adjacency matrix.
+The 1-D array w stores **only the upper triangle** of A in row-major order:
+$$w = \big(A[0,1], A[0,2], \ldots, A[0,n-1], A[1,2], \ldots, A[1,n-1], \ldots, A[n-2,n-1]\big)$$
+Thus |w| = n(n-1)/2.
+
+**Index mapping (0-based vertices).**
+For a pair (i,j) with 0 ≤ i < j ≤ n-1, its position k in w is
+$$\boxed{k(i,j) = \frac{i(2n-i-1)}{2} + (j-i-1)}$$
+
+* The first term counts how many entries come **before row i** in the upper triangle: 
+  $(n-1) + (n-2) + \cdots + (n-i) = in - \frac{i(i+1)}{2} = \frac{i(2n-i-1)}{2}$
+* The second term $(j-i-1)$ is the **offset inside row i** (since row i stores A[i,i+1], A[i,i+2], ...)
+
+**Decision rule.**
+The edge {i,j} is present **iff**
+$$w\big[k(i,j)\big] = 1$$
+
+**Example.**
+n = 4 and w = [A₀₁, A₀₂, A₀₃, A₁₂, A₁₃, A₂₃].
+For (i,j) = (1,3): k = (1(2·4-1-1))/2 + (3-1-1) = 6/2 + 1 = 4.
+So {1,3} is present iff w[4] = 1.
+
+---
+
+### Exercise 3: Design a language for directed graph 
+
+**Problem**: design a language for directed graph 
+
+The language of directed graphs is defined as:
+$$L_{\text{directed}} = \bigcup_{n \geq 0} \{0,1\}^{n(n-1)}$$
+
+---
+### Exercise 4: Design a language for sequences of fractions. 
+
+**Problem**:  Design a language for sequences of fractions. A fraction is the quotient of two integers.  
+
+a. Alphabet 
+
+The alphabet for this would 
+
+1. Digits: 0, 1, 2, ..., 9
+2. Negative sign: - (for negative numbers)
+3. Division operator: / (to separate numerator and denominator)
+4. Sequence separator: , (to separate fractions in a sequence)
+
+$$ \sum = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -, /, ,\} $$
+
+language definition
+
+$$ Language Definition:
+$$
+
+---
+
+
+## Excercise pro tips 
+
+
+## Adjacency Matrix Formula Derivation
+
+### Step-by-Step Derivation of k(i,j)
+
+We have an **n × n adjacency matrix**, but we only store the **upper triangle** (where j > i) as a 1D array w.
+We need a formula to map a pair (i, j) → index k in w.
+
+#### Triangular Pattern Analysis
+
+For each row i:
+- Row 0 contributes (n-1) entries: A[0][1], A[0][2], ..., A[0][n-1]
+- Row 1 contributes (n-2) entries: A[1][2], A[1][3], ..., A[1][n-1]  
+- Row 2 contributes (n-3) entries, etc.
+
+So, before row i, there are already:
+$$
+(n-1) + (n-2) + \dots + (n-i)
+$$
+entries stored in w.
+
+#### Arithmetic Series Simplification
+
+That's an arithmetic series:
+$$
+(n-1) + (n-2) + \dots + (n-i) = i \cdot n - \frac{i(i+1)}{2}
+$$
+
+This gives the **number of elements that come before** row i in w.
+
+#### Offset Within Row
+
+In row i, the stored entries start at column j = i+1.
+If you're looking for column j, the offset within that row is:
+$$
+(j - i - 1)
+$$
+
+Example: if i = 2 and j = 3, offset = 0 → first entry in that row's portion of w.
+
+#### Final Formula
+
+Combining both parts:
+$$
+k(i, j) = \underbrace{i n - \frac{i(i + 1)}{2}}_{\text{entries before row i}} + \underbrace{(j - i - 1)}_{\text{offset in row i}}
+$$
+
+Simplifying algebraically:
+$$
+k(i, j) = \frac{i(2n - i - 1)}{2} + (j - i - 1)
+$$
+
+#### Sanity Check (n = 4)
+
+| (i, j) | k(i, j) | Explanation       |
+|--------|---------|-------------------|
+| (0,1)  | 0       | first entry       |
+| (0,2)  | 1       | second entry      |
+| (0,3)  | 2       | third entry       |
+| (1,2)  | 3       | start of next row |
+| (1,3)  | 4       | next entry        |
+| (2,3)  | 5       | final entry       |
+
+### Checking Graph Symmetry
+
+#### Definition
+
+For a matrix A (the adjacency matrix of a graph):
+$$
+A \text{ is symmetric if } A[i][j] = A[j][i] \text{ for all } i, j
+$$
+
+This means the matrix equals its **transpose**:
+$$
+A = A^T
+$$
+
+#### Conceptual Check
+
+1. Take the transpose of the matrix
+2. Compare it element-by-element with the original matrix  
+3. If they are identical → the graph is **undirected**
+   If any A[i][j] ≠ A[j][i] → the graph is **directed**
+

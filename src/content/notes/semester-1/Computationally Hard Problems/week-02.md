@@ -39,3 +39,5 @@ In the form of worst case and best case
 ## 
 
 #TODO
+
+## Excercice 
