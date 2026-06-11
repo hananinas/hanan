@@ -109,10 +109,7 @@ export default function SearchBar({ searchList }: Props) {
       <ul className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {searchResults &&
           searchResults.map(({ item, refIndex }) => {
-            const href =
-              item.type === "note"
-                ? `/notes/${item.slug}`
-                : `/projects/${item.slug}`; // retain original blog base
+            const href = `/projects/${item.slug}`;
             return (
               <Card
                 href={href}

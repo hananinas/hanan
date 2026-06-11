@@ -6,7 +6,7 @@ const logoSVG = "/images/logo.svg";
 const logoSVG_dark = "/images/logo-dark.svg";
 
 export interface Props {
-  activeNav?: "projects" | "skils" | "notes" | "about" | "search";
+  activeNav?: "projects" | "skils" | "studies" | "about" | "search";
 }
 
 const { activeNav } = Astro.props;
@@ -71,10 +71,10 @@ const { activeNav } = Astro.props;
           </li>
           <li>
             <a
-              href="/notes"
-              class={`nav-link ${activeNav === "notes" ? "active" : ""}`}
+              href="/studies"
+              class={`nav-link ${activeNav === "studies" ? "active" : ""}`}
             >
-              <span class="text-[#D90416]">~/</span>Notes
+              <span class="text-[#D90416]">~/</span>Studies
             </a>
           </li>
           <li>

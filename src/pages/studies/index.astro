@@ -1,0 +1,212 @@
+---
+import { SITE } from "@config";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const pageTitle = "Studies";
+const pageDescription =
+  "What I have studied and the courses I have taken along the way.";
+
+const education = [
+  {
+    degree: "MSc in Computer Science & Engineering",
+    school: "Technical University of Denmark (DTU)",
+    period: "2025 – present",
+  },
+  {
+    degree: "BSc in Software Development",
+    school: "IT University of Copenhagen (ITU)",
+    period: "Completed",
+  },
+];
+
+const rawNotes = await getCollection("notes", ({ data }) => data.draft !== true);
+
+const semestersMap = new Map<
+  string,
+  {
+    name: string;
+    timeframe: string;
+    order: number;
+    courses: Map<string, { name: string; code?: string; order: number }>;
+  }
+>();
+
+for (const { data } of rawNotes) {
+  let semester = semestersMap.get(data.semester);
+  if (!semester) {
+    semester = {
+      name: data.semester,
+      timeframe: data.timeframe,
+      order: data.semesterOrder ?? Number.MAX_SAFE_INTEGER,
+      courses: new Map(),
+    };
+    semestersMap.set(data.semester, semester);
+  }
+
+  if (!semester.courses.has(data.course)) {
+    semester.courses.set(data.course, {
+      name: data.course,
+      code: data.courseCode,
+      order: data.courseOrder ?? Number.MAX_SAFE_INTEGER,
+    });
+  }
+}
+
+const semesters = Array.from(semestersMap.values())
+  .sort((a, b) => a.order - b.order)
+  .map(semester => ({
+    ...semester,
+    courses: Array.from(semester.courses.values()).sort(
+      (a, b) => a.order - b.order
+    ),
+  }));
+---
+
+<Layout title={`${pageTitle} | ${SITE.title}`} description={pageDescription}>
+  <Header activeNav="studies" />
+  <Breadcrumbs />
+  <main id="main-content">
+    <section class="hero">
+      <h1 class="text-3xl font-semibold tracking-wide sm:text-4xl">
+        {pageTitle}
+      </h1>
+      <p class="mt-3 max-w-2xl text-base text-skin-base/80 sm:text-lg">
+        {pageDescription}
+      </p>
+    </section>
+
+    <section class="studies-section">
+      <h2 class="studies-section__title">
+        <span class="text-[#D90416]">~/</span>Education
+      </h2>
+      <div class="education-grid">
+        {
+          education.map(item => (
+            <article class="education-card">
+              <h3 class="education-card__degree">{item.degree}</h3>
+              <p class="education-card__school">{item.school}</p>
+              <span class="education-card__period">{item.period}</span>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    {
+      semesters.length > 0 && (
+        <section class="studies-section">
+          <h2 class="studies-section__title">
+            <span class="text-[#D90416]">~/</span>Courses
+          </h2>
+          <div class="semesters">
+            {semesters.map(semester => (
+              <article class="semester-card">
+                <header class="semester-card__header">
+                  <h3 class="semester-card__title">{semester.name}</h3>
+                  <span class="semester-card__timeframe">
+                    {semester.timeframe}
+                  </span>
+                </header>
+                <ul class="course-list">
+                  {semester.courses.map(course => (
+                    <li class="course-item">
+                      <span class="course-item__name">{course.name}</span>
+                      {course.code && (
+                        <span class="course-item__code">{course.code}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  @reference "../../styles/base.css";
+
+  #main-content {
+    @apply mx-auto mb-20 flex max-w-[72rem] flex-col gap-14 px-4 sm:px-6;
+  }
+
+  .hero {
+    @apply mt-6 flex flex-col gap-3 sm:mt-10;
+  }
+
+  .studies-section {
+    @apply space-y-6;
+  }
+
+  .studies-section__title {
+    @apply text-2xl font-semibold text-skin-base sm:text-3xl;
+  }
+
+  .education-grid {
+    @apply grid gap-6 sm:grid-cols-2;
+  }
+
+  .education-card {
+    @apply flex flex-col gap-2 rounded-2xl border border-skin-border bg-skin-fill/80 p-6 shadow-lg shadow-skin-border/10 backdrop-blur;
+  }
+
+  .education-card__degree {
+    @apply text-lg font-semibold text-skin-base sm:text-xl;
+  }
+
+  .education-card__school {
+    @apply text-sm text-skin-base/80;
+  }
+
+  .education-card__period {
+    @apply mt-2 text-xs font-semibold uppercase tracking-[0.35em] text-skin-base/60;
+  }
+
+  .semesters {
+    @apply flex flex-col gap-6;
+  }
+
+  .semester-card {
+    @apply flex flex-col gap-4 rounded-2xl border border-skin-border bg-skin-fill/80 p-6 shadow-lg shadow-skin-border/10 backdrop-blur;
+  }
+
+  .semester-card__header {
+    @apply flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between;
+  }
+
+  .semester-card__title {
+    @apply text-lg font-semibold text-skin-base sm:text-xl;
+  }
+
+  .semester-card__timeframe {
+    @apply text-xs font-semibold uppercase tracking-[0.35em] text-skin-base/60;
+  }
+
+  .course-list {
+    @apply grid gap-3 sm:grid-cols-2;
+  }
+
+  .course-item {
+    @apply flex items-center justify-between gap-4 rounded-xl border border-skin-border bg-skin-fill/70 px-5 py-3 transition;
+  }
+
+  .course-item:hover {
+    @apply border-[#D90416]/60;
+  }
+
+  .course-item__name {
+    @apply text-sm font-medium text-skin-base;
+  }
+
+  .course-item__code {
+    @apply rounded-full border border-skin-border/80 bg-skin-card px-3 py-1 text-[0.625rem] font-semibold uppercase tracking-[0.25em] text-skin-base/80;
+  }
+</style>
