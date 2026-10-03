@@ -10,35 +10,19 @@ tags:
 - Html
 - CSS
 - Wordpress
-description: A blog post about my experience working on Friegrønne, where I share my experience building Friegrønne's website using SEO and designing tools like Figma and WordPress.
+description: A look back at the Figma, WordPress and search work behind an earlier version of Friegrønne's website.
 ---
 
+I worked on an earlier version of the website for Friegrønne, a Danish political party. The aim was to make its ideas easy to find and read.
 
-As a web developer, I recently had the pleasure of working on a project for Friegrønne, a Danish political party. Friegrønne wanted a website that would showcase their vision and ideas to potential voters. In this blog post, I'll share my experience building Friegrønne's website using SEO and designing tools like Figma and WordPress.
+## Design and structure
 
-## Understanding Friegrønne's Vision and Goals
+![An early Friegrønne website and Figma mockup](/blog-images/oldfriegronne.png)
 
-Before starting any project, it's important to understand the client's vision and goals. In this case, Friegrønne wanted a website that would reflect their commitment to eco-friendliness and sustainability. They wanted a clean and modern design that would appeal to their target audience - environmentally-conscious voters.
+I mapped the site's pages before drawing layouts in Figma. That made it easier to decide where a visitor would find the party's positions and how the navigation should work. I then built the pages in WordPress using the existing visual identity.
 
-## Designing the Website with Figma
+## Search basics
 
-![old website](/blog-images/oldfriegronne.png)
-The left image is the old website the right image is the first Mockup
+I worked on page titles, descriptions, mobile layouts and site structure. Those are concrete changes I made; I don't have before-and-after search data to claim they improved rankings.
 
-To create a design that would meet Friegrønne's requirements, I used Figma - a collaborative interface design tool. Figma allowed me to create a wireframe and design the website's user interface (UI) in a seamless and efficient way. I started by creating a sitemap of the website, which helped me to organize the content and structure of the website.
-
-Next, I designed the website's UI, keeping in mind Friegrønne's brand guidelines and color palette. I used a minimalist design with plenty of white space and eco-friendly imagery to create a modern and visually appealing website.
-
-The final result can be seen at [friegronne.dk](https://friegronne.dk)
-
-## Building the Website with WordPress
-
-Once the design was finalized, it was time to build the website using WordPress - a content management system that powers over 40% of all websites on the internet. WordPress allowed me to easily create pages, posts, and products, and customize the website's layout and functionality.
-
-During the development process, I also focused on optimizing the website for search engines using SEO best practices. This included optimizing page titles, descriptions, and meta tags, as well as ensuring the website was mobile-friendly and had fast loading times.
-
-## Conclusion
-
-Working on Friegrønne's website was a fulfilling experience, as it allowed me to contribute to a more eco-friendly future. By using designing tools like Figma and building with WordPress, I was able to create a website that met Friegrønne's vision and goals. Additionally, by focusing on SEO best practices, I helped Friegrønne's website to rank higher in search engine results pages, making it easier for potential customers to find them online.
-
-If you're looking to build a website for your business or organization, consider working with a web developer who can help you achieve your goals and create a website that reflects your vision.
+This post documents the work as it stood in 2023. It does not describe the current Friegrønne website.

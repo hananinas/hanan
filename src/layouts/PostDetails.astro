@@ -2,63 +2,29 @@
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import Tag from "@components/Tag.astro";
-import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
-import "../styles/base.css";
-
-export interface Props {
-  post: CollectionEntry<"blog">;
-}
-
+export interface Props { post: CollectionEntry<"blog">; }
 const { post } = Astro.props;
-
 const { title, author, description, ogImage, pubDatetime, tags } = post.data;
-
 const { Content } = await post.render();
-
-const ogUrl = new URL(ogImage ? ogImage : `${title}.png`, Astro.url.origin)
-  .href;
+const ogUrl = new URL(ogImage ? ogImage : `${title}.png`, Astro.url.origin).href;
 ---
-
-<Layout title={title} author={author} description={description} ogImage={ogUrl}>
-  <Header />
-  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
-    <button
-      class="focus-outline mt-8 mb-2 flex hover:opacity-75"
-      onclick="history.back()"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        ><path
-          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-        ></path>
-      </svg><span>Go back</span>
-    </button>
-  </div>
-  <main id="main-content">
-    <h1 class="post-title">{title}</h1>
-    <Datetime datetime={pubDatetime} size="lg" className="my-2" />
-    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
-      <Content />
-    </article>
-
-    <ul class="tags-container">
-      {tags.map(tag => <Tag name={tag} />)}
-    </ul>
+<Layout title={`${title} | Hanan`} author={author} description={description} ogImage={ogUrl}>
+  <Header activeNav="projects" />
+  <main id="main-content" class="reading-shell post-main">
+    <a class="back-link" href="/projects">← All work</a>
+    <header class="post-header"><p class="meta"><time datetime={pubDatetime.toISOString()}>{pubDatetime.toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}</time> {tags.length > 0 && <span aria-hidden="true">·</span>} {tags.join(" / ")}</p><h1>{title}</h1><p class="description">{description}</p></header>
+    <article class="prose"><Content /></article>
+    <div class="post-end"><a href="/projects">← Back to work</a></div>
   </main>
   <Footer />
 </Layout>
-
 <style>
-      @reference "../styles/base.css";
-
-  main {
-    @apply mx-auto w-full max-w-3xl px-4 pb-12;
-  }
-  .post-title {
-    @apply text-2xl font-semibold text-skin-accent;
-  }
-  .tags-container {
-    @apply my-8;
-  }
+.post-main { padding-top: 55px; padding-bottom: 110px; }
+.back-link,.post-end a { font-size: .8rem; color: var(--secondary); text-decoration: none; }
+.post-header { margin: 50px 0 54px; padding-bottom: 30px; border-bottom: 1px solid var(--line); }
+.post-header h1 { font-size: clamp(2.1rem, 4vw, 3.3rem); line-height: 1.14; letter-spacing: -.06em; margin: 18px 0; }
+.description { color: var(--secondary); font-size: 1.03rem; line-height: 1.65; max-width: 62ch; margin: 0; }
+.post-end { border-top: 1px solid var(--line); margin-top: 80px; padding-top: 25px; }
+@media(max-width: 640px) { .post-header { margin: 32px 0 38px; } .post-main { padding-top: 34px; padding-bottom: 70px; } }
 </style>

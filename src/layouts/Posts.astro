@@ -1,80 +1,31 @@
 ---
 import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
-import Main from "@layouts/Main.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import Card from "@components/Card";
-import LinkButton from "@components/LinkButton.astro";
 import slugify from "@utils/slugify";
 import type { CollectionEntry } from "astro:content";
-import "../styles/base.css";
-
-export interface Props {
-  pageNum: number;
-  totalPages: number;
-  posts: CollectionEntry<"blog">[];
-}
-
+export interface Props { pageNum: number; totalPages: number; posts: CollectionEntry<"blog">[]; }
 const { pageNum, totalPages, posts } = Astro.props;
-
-const prev = pageNum > 1 ? "" : "disabled";
-const next = pageNum < totalPages ? "" : "disabled";
 ---
-
-<Layout title={`Projects | ${SITE.title}`}>
+<Layout title={`Work | ${SITE.title}`} description="Projects and notes by Hanan.">
   <Header activeNav="projects" />
-  <Main pageTitle="Projects" pageDesc="All the articles I've posted.">
-      <ul class="mt-12 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-        {
-          posts.map(({ data }) => (
-            <Card href={`/projects/${slugify(data)}`} frontmatter={data} />
-          ))
-        }
-      </ul>   
-  </Main>
-
-  {
-    totalPages > 1 && (
-      <nav class="pagination-wrapper" aria-label="Pagination">
-        <LinkButton
-          disabled={prev === "disabled"}
-          href={`/projects${pageNum - 1 !== 1 ? "/" + (pageNum - 1) : ""}`}
-          className={`mr-4 select-none ${prev}`}
-          ariaLabel="Previous"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class={`${prev}-svg`}>
-            <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
-          </svg>
-          Prev
-        </LinkButton>
-        <LinkButton
-          disabled={next === "disabled"}
-          href={`/projects/${pageNum + 1}`}
-          className={`ml-4 select-none ${next}`}
-          ariaLabel="Next"
-        >
-          Next
-          <svg xmlns="http://www.w3.org/2000/svg" class={`${next}-svg`}>
-            <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z" />
-          </svg>
-        </LinkButton>
-      </nav>
-    )
-  }
-  <Footer noMarginTop={totalPages > 1} />
+  <main id="main-content" class="site-shell projects-main">
+    <p class="eyebrow">Index / {String(pageNum).padStart(2, "0")}</p>
+    <h1>Work and notes</h1>
+    <p class="lede">Things I've built and written about. Older work stays here as a record of what I was learning at the time.</p>
+    <ul class="content-list">
+      {posts.map(({ data }) => <li><a href={`/projects/${slugify(data)}`}><span class="meta">{data.pubDatetime.getFullYear()}</span><span class="entry-copy"><span class="entry-title">{data.title}</span><span class="entry-desc">{data.description}</span></span><span class="entry-arrow" aria-hidden="true">↗</span></a></li>)}
+    </ul>
+    {totalPages > 1 && <nav class="pagination" aria-label="Pages">{pageNum > 1 && <a href={pageNum === 2 ? "/projects" : `/projects/${pageNum - 1}`}>← Newer</a>}{pageNum < totalPages && <a href={`/projects/${pageNum + 1}`}>Older →</a>}</nav>}
+  </main>
+  <Footer />
 </Layout>
-
 <style>
-      @reference "../styles/base.css";
-
-  .pagination-wrapper {
-    @apply mt-auto mb-8 flex justify-center;
-  }
-  .disabled {
-    @apply pointer-events-none select-none opacity-50 hover:text-skin-base group-hover:fill-skin-base;
-  }
-  .disabled-svg {
-    @apply group-hover:!fill-skin-base;
-  }
+.projects-main { padding-top: 80px; padding-bottom: 130px; }
+h1 { margin: 7px 0 0; font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -.065em; line-height: 1.18; }
+.lede { max-width: 56ch; color: var(--secondary); margin: 18px 0 52px; }
+.pagination { display: flex; justify-content: space-between; gap: 24px; margin-top: 32px; font-size: .85rem; }
+.pagination a { color: var(--accent); }
+@media(max-width: 640px) { .projects-main { padding-top: 58px; padding-bottom: 85px; } }
 </style>

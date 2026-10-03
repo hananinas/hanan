@@ -9,22 +9,13 @@ tags:
 - Ruby
 - Python
 - Shopify
-description: A blog post about my experience working on Elusive, where I used Ruby and Shopify, and also incorporated Python with the GraphQL API to add products to the website.
+description: An early look at how I used Shopify, Ruby and Python to get product data onto Elusive.
 ---
 
-![Configuring the Directory Section](/images/IMG_1642-6.png)
+![An early version of the Elusive website](/images/IMG_1642-6.png)
 
-## Motivation
+This is a record of an earlier version of Elusive. The site and the way I build it have changed since I wrote this.
 
-I recently had the opportunity to work with Shopify and Ruby on a project called Elusive. My role was to develop an e-commerce website and create a seamless user experience. I also incorporated Python with the GraphQL API to enhance the functionality of the site.
+The work combined a Shopify storefront with scripts for product data. I used Ruby while working on the site, and Python to send product records through Shopify's GraphQL API. Automating that step mattered because entering each item manually took time away from the actual work of finding and checking products.
 
-## Challenges
-
-One of the main challenges of the project was to create an e-commerce site that was both visually appealing and easy to use. To achieve this, I utilized Ruby to create dynamic web pages and Shopify to manage the e-commerce functionality. By combining these two technologies, I was able to create a site that was both aesthetically pleasing and easy to navigate.
-
-In addition to Ruby and Shopify, I also incorporated Python with the GraphQL API to enhance the functionality of the site. Specifically, I used Python to create custom scripts that automated various tasks, such as data processing and analysis. One such task involved using the GraphQL API to add products to the website. By automating this process with Python, we were able to add products to the site more efficiently and provide a better experience for our users.
-
-
-## Conclusion
-
-Overall, working on Elusive was a challenging but rewarding experience. By utilizing Ruby, Shopify, and Python with the GraphQL API, we were able to create a site that was both visually appealing and highly functional.
+I learned that the product data pipeline was as much a part of the shopping experience as the pages people saw. A good storefront doesn't help much if the inventory behind it is slow to update.

@@ -1,53 +1,22 @@
 ---
-import { CollectionEntry, getCollection } from "astro:content";
+import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
-import Main from "@layouts/Main.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import Card from "@components/Card";
 import getUniqueTags from "@utils/getUniqueTags";
 import getPostsByTag from "@utils/getPostsByTag";
 import slugify from "@utils/slugify";
-import { SITE } from "@config";
-
-export interface Props {
-  post: CollectionEntry<"blog">;
-  tag: string;
-}
-
-export async function getStaticPaths() {
-  const posts = await getCollection("blog");
-
-  const tags = getUniqueTags(posts);
-
-  return tags.map(tag => {
-    return {
-      params: { tag },
-      props: { tag },
-    };
-  });
-}
-
+export async function getStaticPaths() { const tags = getUniqueTags(await getCollection("blog")); return tags.map(tag => ({ params: { tag }, props: { tag } })); }
 const { tag } = Astro.props;
-
-const posts = await getCollection("blog", ({ data }) => !data.draft);
-
-const tagPosts = getPostsByTag(posts, tag);
+const posts = getPostsByTag(await getCollection("blog", ({data}) => !data.draft), tag);
 ---
-
-<Layout title={`Tag:${tag} | ${SITE.title}`}>
+<Layout title={`${tag} | Hanan`} description={`Projects tagged ${tag}`}>
   <Header activeNav="skils" />
-  <Main
-    pageTitle={`Tag:${tag}`}
-    pageDesc={`All the articles with the skil "${tag}".`}
-  >
-    <ul class="mt-10 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-      {
-        tagPosts.map(({ data }) => (
-          <Card href={`/projects/${slugify(data)}`} frontmatter={data} />
-        ))
-      }
-    </ul>
-  </Main>
+  <main id="main-content" class="site-shell topic-main"><a href="/skils" class="back-link">← All topics</a><h1>{tag}</h1><ul class="content-list">{posts.map(({data}) => <li><a href={`/projects/${slugify(data)}`}><span class="meta">{data.pubDatetime.getFullYear()}</span><span class="entry-copy"><span class="entry-title">{data.title}</span><span class="entry-desc">{data.description}</span></span><span class="entry-arrow" aria-hidden="true">↗</span></a></li>)}</ul></main>
   <Footer />
 </Layout>
+<style>
+.topic-main { padding-top: 70px; padding-bottom: 110px; }
+h1 { font-size: clamp(2.4rem,5vw,4rem); letter-spacing: -.065em; line-height: 1.2; margin: 16px 0 46px; }
+.back-link { color: var(--secondary); text-decoration: none; font-size: .8rem; }
+</style>

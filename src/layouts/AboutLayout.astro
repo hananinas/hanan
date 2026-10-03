@@ -1,75 +1,18 @@
 ---
 import { SITE } from "@config";
-import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import Layout from "./Layout.astro";
-import "../styles/base.css";
-
-type SemesterNotes = {
-  name: string;
-  subjects: {
-    name: string;
-    notes?: string[];
-  }[];
-};
-
-export interface Props {
-  frontmatter: {
-    title: string;
-    description?: string;
-    semesters?: SemesterNotes[];
-  };
-}
-
+export interface Props { frontmatter: { title: string; description?: string; }; }
 const { frontmatter } = Astro.props;
 ---
-
-<Layout title={`${frontmatter.title} | ${SITE.title}`}>
+<Layout title={`${frontmatter.title} | ${SITE.title}`} description={frontmatter.description}>
   <Header activeNav="about" />
-  <Breadcrumbs />
-  <main id="main-content">
-    <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0">
-      <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
-      <slot />
-      {frontmatter.semesters && frontmatter.semesters.length > 0 && (
-        <section class="mt-16 space-y-8">
-          <h2 class="text-xl font-semibold tracking-wide sm:text-2xl">
-            Master's notes
-          </h2>
-          {frontmatter.semesters.map((semester) => (
-            <article class="space-y-4" key={semester.name}>
-              <h3 class="text-lg font-semibold text-skin-base sm:text-xl">
-                {semester.name}
-              </h3>
-              <div class="grid gap-4 sm:grid-cols-2">
-                {semester.subjects.map((subject) => (
-                  <div
-                    class="rounded-lg border border-skin-border bg-skin-fill p-4 shadow-sm"
-                    key={subject.name}
-                  >
-                    <h4 class="text-base font-semibold text-skin-base">
-                      {subject.name}
-                    </h4>
-                    {subject.notes && subject.notes.length > 0 ? (
-                      <ul class="mt-2 list-disc space-y-1 pl-4 text-sm">
-                        {subject.notes.map((note) => (
-                          <li key={note}>{note}</li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p class="mt-2 text-sm text-skin-base opacity-70">
-                        Notes coming soon.
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </article>
-          ))}
-        </section>
-      )}
-    </section>
-  </main>
+  <main id="main-content" class="reading-shell about-main"><p class="eyebrow">About</p><h1>{frontmatter.title}</h1><article class="prose"><slot /></article></main>
   <Footer />
 </Layout>
+<style>
+.about-main { padding-top: 75px; padding-bottom: 110px; }
+h1 { margin: 9px 0 52px; font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -.065em; line-height: 1.2; }
+@media(max-width:640px) { .about-main { padding-top: 50px; padding-bottom: 70px; } h1 { margin-bottom: 36px; } }
+</style>

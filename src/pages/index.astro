@@ -3,146 +3,44 @@ import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import Card from "@components/Card";
-import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import slugify from "@utils/slugify";
-import Hero from "@components/Hero.astro";
-import { SOCIALS } from "@config";
-
-const posts = await getCollection("blog");
-
-const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const socialCount = SOCIALS.filter(social => social.active).length;
-
+const posts = getSortedPosts(await getCollection("blog"));
+const selected = posts.filter(({ data }) => data.featured).slice(0, 4);
 ---
-
-<Layout>
-  {
-    socialCount > 0 && (
-      <div class="floating-socials">
-        <Socials variant="floating" />
-      </div>
-    )
-  }
-  <Header  />
-  <main id="main-content" class="relative overflow-hidden pb-24">
-    
-
-    <Hero />
-
-    {
-      featuredPosts.length > 0 && (
-        <section id="projects" class="section-block">
-          <div class="section-heading">
-            <h2 class="section-title">
-              <span class="section-tilde">~/</span>
-              Projects
-            </h2>
-            <a href="/projects" class="section-link">
-              <span>View all</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                class="h-4 w-4"
-                aria-hidden="true"
-              >
-                <path
-                  fill="currentColor"
-                  d="m13 5.586 4.707 4.707-9.586.001V13.7h9.586L13 18.414 14.414 19.8 21.828 12.384 14.414 4.97 13 5.586z"
-                ></path>
-              </svg>
-            </a>
-          </div>
-          <ul class="project-grid">
-            {featuredPosts.map(({ data }) => (
-              <Card
-                href={`/projects/${slugify(data)}`}
-                frontmatter={data}
-                secHeading={false}
-              />
-            ))}
-          </ul>
-        </section>
-      )
-    }
-
-    <section id="about" class="section-block">
-      <div class="section-heading">
-        <h2 class="section-title">
-          <span class="section-tilde">~/</span>
-          About me
-        </h2>
-        <a href="/about" class="section-link">
-          <span>Read more</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            class="h-4 w-4"
-            aria-hidden="true"
-          >
-            <path
-              fill="currentColor"
-              d="m13 5.586 4.707 4.707-9.586.001V13.7h9.586L13 18.414 14.414 19.8 21.828 12.384 14.414 4.97 13 5.586z"
-            ></path>
-          </svg>
-        </a>
-      </div>
-      <div class="about-panel">
-        <p>
-          I’m Hanan, a software development student at ITU, and the founder of
-          Elusive and UAI. I love transforming ambitious ideas into digital
-          products that feel thoughtful and useful.
-        </p>
-        <p>
-          My focus is building solutions that connect technology with business
-          outcomes. I’m happiest when I’m collaborating on products that help
-          people move faster and think bigger.
-        </p>
-      </div>
+<Layout title="Hanan | Software, research, and things I make" description="Hanan Choudhary Hadayat builds software and studies computer science at DTU.">
+  <Header />
+  <main id="main-content" class="site-shell">
+    <section class="intro" aria-labelledby="intro-title">
+      <p class="eyebrow">Copenhagen / software & research</p>
+      <h1 id="intro-title">I'm Hanan.<br /><span>I make things for the internet.</span></h1>
+      <p class="intro-text">I study computer science and engineering at DTU. Outside class, I build developer tools and work on Elusive, a way to find clothing worth looking for.</p>
+      <div class="intro-links"><a href="/about">More about me <span aria-hidden="true">↗</span></a><a href="mailto:hanan@uai.dk">Email me <span aria-hidden="true">↗</span></a></div>
     </section>
-
-    <section id="contact" class="section-block">
-      <div class="section-heading">
-        <h2 class="section-title">
-          <span class="section-tilde">~/</span>
-          Contact
-        </h2>
-      </div>
-      <div class="contact-wrap">
-        <p class="contact-copy">
-          I’m currently open to freelance projects, part-time roles, and
-          meaningful collaborations. If you have an opportunity or a question,
-          I’d love to hear about it.
-        </p>
-        <div class="contact-card">
-          <span class="contact-label">Let’s build something</span>
-          <a href="mailto:hanan@uai.dk" class="contact-mail">hanan@uai.dk</a>
-        </div>
-      </div>
+    <section class="work" aria-labelledby="work-title">
+      <div class="section-head"><h2 id="work-title" class="section-label">Selected work</h2><a href="/projects">All projects ↗</a></div>
+      <ul class="content-list">
+        {selected.map(({ data }) => <li><a href={`/projects/${slugify(data)}`}><span class="meta">{data.pubDatetime.getFullYear()}</span><span class="entry-copy"><span class="entry-title">{data.title}</span><span class="entry-desc">{data.description}</span></span><span class="entry-arrow" aria-hidden="true">↗</span></a></li>)}
+      </ul>
     </section>
+    <section id="contact" class="contact" aria-labelledby="contact-title"><h2 id="contact-title" class="section-label">Elsewhere</h2><p>I keep notes here, publish code on GitHub, and answer email.</p><div class="contact-links"><a href="https://github.com/hananinas">GitHub ↗</a><a href="mailto:hanan@uai.dk">hanan@uai.dk ↗</a></div></section>
   </main>
-
   <Footer />
 </Layout>
-
-
 <style>
-    @reference "../styles/base.css";
-
-  .floating-socials {
-    @apply pointer-events-auto absolute left-1 top-0 z-30 hidden flex-col items-center sm:left-4 sm:flex md:left-8;
-  }
-  .floating-socials::before {
-    content: "";
-    @apply absolute left-1/2 top-0 h-[320px] w-px -translate-x-1/2 bg-gradient-to-b from-[#2F8F5B]/0 via-[#2F8F5B]/20 to-[#2F8F5B]/70 md:h-[420px];
-  }
-  .floating-socials::after {
-    content: "";
-    @apply absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#2F8F5B]/70 bg-skin-fill shadow-[0_0_20px_rgba(47,143,91,0.45)];
-  }
-  .floating-socials :global(.socials--floating) {
-    @apply mt-24 md:mt-28;
-  }
+.intro { padding: clamp(70px, 11vw, 138px) 0 clamp(84px, 12vw, 150px); max-width: 770px; }
+.intro .eyebrow { margin: 0 0 26px; }
+h1 { margin: 0; font-size: clamp(2.6rem, 6vw, 5.25rem); line-height: 1.13; letter-spacing: -.075em; font-weight: 700; }
+h1 span { color: #6b736a; }
+.intro-text { max-width: 590px; margin: 28px 0 0; font-size: clamp(1.02rem, 1.6vw, 1.18rem); line-height: 1.7; color: var(--secondary); }
+.intro-links,.contact-links { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 28px; font-size: .85rem; font-weight: 650; }
+.intro-links a,.contact-links a { text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 3px; }
+.section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+.section-head h2 { margin: 0; }
+.section-head a { font-size: .78rem; color: var(--secondary); text-decoration: none; }
+.contact { margin: 110px 0 115px; border-top: 1px solid var(--line); padding-top: 28px; }
+.contact h2 { margin: 0; }
+.contact p { margin: 8px 0 0; color: var(--secondary); }
+.contact-links { margin-top: 18px; }
+@media (max-width: 640px) { .intro { padding: 72px 0 85px; } .contact { margin: 80px 0; } }
 </style>

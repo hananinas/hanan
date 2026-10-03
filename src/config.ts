@@ -3,10 +3,10 @@ import type { SocialObjects } from "./types";
 export const SITE = {
   website: "https://hananinas.com/",
   author: "Abdul Hanan",
-  desc: "I'm Hanan, a DTU Master's student in Computer Science & Engineering building human-centred products through Elusive and UAI.",
+  desc: "Hanan Choudhary Hadayat studies computer science at DTU and builds software for developers and fashion discovery.",
   title: "Hanan",
   ogImage: "hanan.png",
-  lightAndDarkMode: true,
+  lightAndDarkMode: false,
   postPerPage: 3,
 };
 
