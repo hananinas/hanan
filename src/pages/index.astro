@@ -11,7 +11,7 @@ const friePost = `/projects/${slugifyStr("building-friegrønne-website-with-SEO-
 const now = [
   {
     label: "Thesis",
-    text: "Writing my MSc thesis on program analysis as scalable oversight for coding agents. Early work, and the questions will move.",
+    text: "MSc thesis with DTU Chemical Engineering and LUT on LLM agents operating a real-time chemical reactor through an MCP server. Starts spring 2027.",
   },
   {
     label: "Kaggle",
@@ -50,10 +50,10 @@ const work = [
     external: false,
   },
   {
-    meta: "search.uai.dk",
-    title: "Unravel Search",
-    desc: "A search API built as a tool backend for AI agents.",
-    href: "https://search.uai.dk",
+    meta: "uai.dk",
+    title: "Unravel",
+    desc: "An AI software house in Copenhagen: custom agent systems, plus Arvel and Blop.",
+    href: "https://uai.dk",
     external: true,
   },
   {
@@ -72,13 +72,13 @@ const work = [
       <div class="who">
         <figure class="print">
           <span class="crop" aria-hidden="true"></span>
-          <img src="/images/hanan.png" width="1024" height="1024" alt="A glitched photograph of Hanan smiling, in a dark t-shirt on a black background." />
+          <img src="/images/hanan-portrait.jpg" width="640" height="800" alt="Hanan smiling in a black shirt, in a glass-walled atrium." />
         </figure>
         <div class="bio">
           <h1 id="intro-title">Hanan Choudhary Hadayat</h1>
           <p>I study computer science at DTU, work part time as an engineer at Context&amp;, and founded Unravel AI. I live in Copenhagen.</p>
           <p>Most of my building time goes into tools for coding agents. <a href="/projects/khadim-local-first-ai-coding-agent">Arvel</a> is a local-first agent workspace. <a href="/projects/blop-intent-based-agentic-browser-testing">Blop</a> tests browsers by intent and checks what agents did.</p>
-          <p>On the side I run <a href="https://elusivecph.com">Elusive</a>, a way to search for clothes across stores, and <a href="https://search.uai.dk">Unravel Search</a>, a search API for agents.</p>
+          <p>On the side I run <a href="https://elusivecph.com">Elusive</a>, a way to search for clothes across stores.</p>
           <p>Want to talk? <a href="mailto:hanan@uai.dk">Send me an email<span class="arr" aria-hidden="true">↗</span></a></p>
         </div>
       </div>
@@ -105,7 +105,7 @@ const work = [
 
     <section class="desk" aria-labelledby="now-title">
       <h2 id="now-title">On my desk right now:</h2>
-      <p class="stamp">Updated October 2026</p>
+      <p class="stamp">Updated November 2026</p>
       <ul class="tree">
         {now.map((item) => <li><span class="leaf-label">{item.label}</span><span class="leaf-text">{item.text}</span></li>)}
       </ul>
@@ -165,7 +165,7 @@ const work = [
     linear-gradient(var(--ink), var(--ink)) 0 100% / 12px 1px no-repeat, linear-gradient(var(--ink), var(--ink)) 0 100% / 1px 12px no-repeat,
     linear-gradient(var(--ink), var(--ink)) 100% 100% / 12px 1px no-repeat, linear-gradient(var(--ink), var(--ink)) 100% 100% / 1px 12px no-repeat;
   opacity: .55; }
-.print img { width: 80px; height: 100px; object-fit: cover; object-position: 58% 38%; background: #000; border: 3px solid #ffffff; border-bottom-width: 9px; transform: rotate(-4deg); box-shadow: 5px 6px 0 rgba(0, 0, 0, .82); }
+.print img { width: 80px; height: 100px; object-fit: cover; object-position: 50% 32%; background: #000; border: 3px solid #ffffff; border-bottom-width: 9px; transform: rotate(-4deg); box-shadow: 5px 6px 0 rgba(0, 0, 0, .82); }
 .bio { max-width: 46ch; color: var(--secondary); font-size: 1.0625rem; line-height: 1.55; }
 .bio h1 { margin: 0 0 22px; font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(2.6rem, 4.2vw, 3.25rem); line-height: 1; letter-spacing: -.02em; color: var(--ink); }
 .bio p { margin: 0 0 16px; }
