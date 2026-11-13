@@ -8,7 +8,8 @@ The public site is not automatically connected to this local checkout. Local edi
 2. Verify dates, roles, product names and links from Hanan's own repositories or firsthand statements. Ask when a fact cannot be verified. A dated post can remain historically accurate even when the project has moved on; add a dated note rather than pretending its earlier architecture is current.
 3. Write first person, short sentences and specific details. Avoid generic claims like "seamless," "innovative," and unmeasured SEO or performance results.
 4. Keep frontmatter slugs and `pubDatetime` stable unless Hanan asks to migrate them. Existing `/projects/.../` URLs must keep working. Set `draft: true` for unfinished new posts.
-5. Build locally with `~/.bun/bin/bun run build`, inspect rendered output and `git diff --check`, then show Hanan the changed paths. Do not push.
+5. The homepage Now block is a hand-maintained dated snapshot. Update its rows when the work changes and move the month stamp; do not let it age silently. Same for the Selected work list, which is curated by hand rather than pulled from the blog collection.
+6. Build locally with `~/.bun/bin/bun run build`, inspect rendered output and `git diff --check`, then show Hanan the changed paths. Do not push.
 
 ## Adding an article
 

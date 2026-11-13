@@ -3,55 +3,65 @@
 @import "katex/dist/katex.min.css";
 
 @theme {
-  --color-skin-fill: #fafaf8;
-  --color-skin-base: #242923;
-  --color-skin-accent: #344c3e;
-  --color-skin-inverted: #fafaf8;
-  --color-skin-card: #f1f2ef;
-  --color-skin-card-muted: #e6e9e4;
-  --color-skin-border: #dcded8;
-  --color-skin-line: #dcded8;
+  --color-skin-fill: #f4f2e4;
+  --color-skin-base: #23241e;
+  --color-skin-accent: #536342;
+  --color-skin-inverted: #f4f2e4;
+  --color-skin-card: #e3e2d4;
+  --color-skin-card-muted: #d6d5c6;
+  --color-skin-border: #c2c3b2;
+  --color-skin-line: #c2c3b2;
   --breakpoint-sm: 640px;
   --breakpoint-md: 1024px;
 }
 
 :root {
   color-scheme: light;
-  --page: #fafaf8;
-  --ink: #242923;
-  --secondary: #626b62;
-  --line: #dcded8;
-  --accent: #344c3e;
+  /* Palette 148: mineral gray, sulphur yellow, red orange, pistachio green */
+  --page: #f4f2e4;
+  --ink: #23241e;
+  --secondary: #545749;
+  --line: #c2c3b2;
+  --card: #e3e2d4;
+  --card-muted: #d6d5c6;
+  --accent: #536342;
+  --accent-bright: #657651;
+  --hover: #a9401f;
+  --hover-bright: #b34525;
+  --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Azeret Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; background: var(--page); color: var(--ink); font-family: "Manrope", system-ui, sans-serif; font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-::selection { background: #d5dfd4; color: var(--ink); }
+body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; background-color: var(--page); color: var(--ink); font-family: var(--sans); font-size: 1.0625rem; line-height: 1.72; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--card-muted); color: var(--ink); }
 a { color: inherit; text-underline-offset: .2em; }
-a:hover { color: var(--accent); }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+a:hover { color: var(--hover); }
+:focus-visible { outline: 2px solid var(--hover); outline-offset: 3px; }
 img { max-width: 100%; }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; letter-spacing: -.015em; line-height: 1.08; }
 .site-shell { width: min(100% - 40px, 1020px); margin-inline: auto; }
 .reading-shell { width: min(100% - 40px, 680px); margin-inline: auto; }
-.eyebrow, .meta { font-family: "DM Mono", monospace; font-size: .72rem; line-height: 1.6; letter-spacing: .02em; color: var(--secondary); }
-.section-label { font-size: .86rem; font-weight: 700; letter-spacing: -.01em; }
-.content-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.eyebrow, .meta { font-family: var(--mono); font-size: .7rem; line-height: 1.7; letter-spacing: .1em; text-transform: uppercase; color: var(--secondary); }
+.section-label { font-family: var(--mono); font-size: .6875rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.content-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
 .content-list li { border-bottom: 1px solid var(--line); }
 .content-list a { display: grid; grid-template-columns: 105px minmax(0, 1fr) 20px; gap: 24px; align-items: baseline; padding: 22px 0; text-decoration: none; }
-.content-list a:hover .entry-title { text-decoration: underline; text-underline-offset: .2em; }
-.entry-title { display: block; font-weight: 650; font-size: 1.08rem; line-height: 1.35; letter-spacing: -.025em; }
-.entry-desc { display: block; margin-top: 5px; color: var(--secondary); font-size: .88rem; line-height: 1.5; }
-.entry-arrow { justify-self: end; font-size: .95rem; color: var(--secondary); }
-.prose { color: var(--ink); max-width: 68ch; font-family: "Manrope", system-ui, sans-serif; font-size: 1.02rem; line-height: 1.7; }
-.prose :is(h1,h2,h3,h4) { color: var(--ink); font-family: "Manrope", system-ui, sans-serif; letter-spacing: -.035em; line-height: 1.3; }
-.prose h2 { margin-top: 2.5em; font-size: 1.38rem; }
-.prose h3 { margin-top: 2em; font-size: 1.15rem; }
+.content-list a:hover .entry-title { color: var(--hover); }
+.entry-title { display: block; font-family: var(--display); font-weight: 400; font-size: 1.55rem; line-height: 1.15; letter-spacing: -.01em; }
+.entry-desc { display: block; margin-top: 6px; color: var(--secondary); font-size: .9rem; line-height: 1.55; }
+.entry-arrow { justify-self: end; font-family: var(--mono); font-size: .85rem; color: var(--secondary); }
+.prose { color: var(--ink); max-width: 68ch; font-family: var(--sans); font-size: 1.05rem; line-height: 1.75; }
+.prose :is(h1,h2,h3,h4) { color: var(--ink); font-family: var(--display); font-weight: 400; letter-spacing: -.01em; line-height: 1.12; }
+.prose h2 { margin-top: 2.4em; font-size: 1.75rem; }
+.prose h3 { margin-top: 2em; font-size: 1.35rem; }
 .prose p, .prose li { color: var(--ink); }
 .prose a { color: var(--accent); text-decoration-thickness: 1px; }
 .prose img { border: 1px solid var(--line); height: auto; }
 .prose pre { overflow-x: auto; border: 1px solid var(--line); border-radius: 3px; }
-.prose :not(pre)>code { background: #ecefe9; border-radius: 2px; padding: .1em .25em; }
+.prose :not(pre)>code { font-family: var(--mono); font-size: .88em; background: var(--card); border-radius: 2px; padding: .1em .3em; }
 .prose :not(pre)>code::before, .prose :not(pre)>code::after { content: none; }
-.prose blockquote { border-left: 1px solid var(--line); color: var(--secondary); }
+.prose blockquote { border-left: 1px solid var(--line); color: var(--secondary); padding-left: 1.1rem; font-family: var(--display); font-size: 1.2rem; font-style: italic; }
 @media(max-width: 640px) { .site-shell,.reading-shell { width: min(100% - 36px, 1020px); } .content-list a { grid-template-columns: minmax(0,1fr) 16px; gap: 12px; padding: 19px 0; } .content-list .meta { grid-column: 1 / -1; grid-row: 1; } .content-list .entry-copy { grid-column: 1; grid-row: 2; } .content-list .entry-arrow { grid-column: 2; grid-row: 2; } }

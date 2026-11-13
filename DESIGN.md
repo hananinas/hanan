@@ -4,11 +4,13 @@ This is a personal work notebook, not a software launch page. Someone should be 
 
 ## Decisions
 
-- One warm-neutral paper background, dark green-gray type, quiet green links. No dark-mode duplicate, gradient hero, shadows or floating widgets.
-- Manrope for headings and body, DM Mono for dates and small metadata only. Headlines do the work. Body prose stays around 68 characters per line with generous line height.
+- One warm paper background (`#f7f4ed`), near-black warm ink (`#1a1a15`), deep forest accent (`#2c4433`). No dark-mode duplicate, gradient hero, shadows or floating widgets.
+- Instrument Serif for display: the statement, work titles and article headings. Geist for body and UI. Geist Mono for dates, labels and navigation, uppercase and tracked. Headlines do the work. Body prose stays around 68 characters per line with generous line height.
+- The hero uses the serif at statement scale, with the second line in italic and one step down in color. This replaces the bold grotesque headline; the site should read like a printed index, not a landing page.
 - Align each project row by date and title. On narrow screens, the date moves above the title. Use plain rules to separate items, not cards.
 - Keep the real diagrams and screenshots inside historical articles. Do not use are.na scans or arbitrary stock images as if they were Hanan's own work.
 - Navigation is short and visible on mobile. Older `/skils/` links remain live as a topic index, but the main navigation is Work / Studies / About / Search.
+- A dated Now block states the current state in four rows: the spine-and-tick list borrows the shape of a file tree, never glossy icons. Current state lives here, not in a hero metric.
 - Contact is text, not a call-to-action box. Article pages include a stable back link, publication date, summary and restrained topic metadata.
 
 ## Research basis

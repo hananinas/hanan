@@ -1,46 +1,257 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import getSortedPosts from "@utils/getSortedPosts";
-import slugify from "@utils/slugify";
-const posts = getSortedPosts(await getCollection("blog"));
-const selected = posts.filter(({ data }) => data.featured).slice(0, 4);
+import { slugifyStr } from "@utils/slugify";
+
+const elusivePost = `/projects/${slugifyStr("my-work-on-elusive")}`;
+const kdPost = `/projects/${slugifyStr("kd-tree")}`;
+const friePost = `/projects/${slugifyStr("building-friegrønne-website-with-SEO-and-Designing-in-Figma-and-WordPress")}`;
+
+const now = [
+  {
+    label: "Thesis",
+    text: "Writing my MSc thesis on program analysis as scalable oversight for coding agents. Early work, and the questions will move.",
+  },
+  {
+    label: "Kaggle",
+    text: "Building a Gemma 4 software-engineering agent for the Kaggle competition. Entry deadline November 25.",
+  },
+  {
+    label: "Blop",
+    text: "Pushing Blop from observing coding agents toward verifying them: deterministic checks over agent traces.",
+  },
+  {
+    label: "CBS",
+    text: "Teaching assistant at Copenhagen Business School for Python programming and introductory machine learning.",
+  },
+];
+const work = [
+  {
+    meta: "Agent workspace",
+    title: "Arvel",
+    note: "formerly Khadim",
+    desc: "A local-first coding agent and the agent workspace around it.",
+    href: "/projects/khadim-local-first-ai-coding-agent",
+    external: false,
+  },
+  {
+    meta: "Desk companion",
+    title: "Arvel desk buddy",
+    desc: "A touchscreen desk companion on an ESP32 board.",
+    href: "/projects/arvel-desk-buddy",
+    external: false,
+  },
+  {
+    meta: "Testing",
+    title: "Blop",
+    desc: "Intent-based browser testing, driven by an AI agent.",
+    href: "/projects/blop-intent-based-agentic-browser-testing",
+    external: false,
+  },
+  {
+    meta: "search.uai.dk",
+    title: "Unravel Search",
+    desc: "A search API built as a tool backend for AI agents.",
+    href: "https://search.uai.dk",
+    external: true,
+  },
+  {
+    meta: "elusivecph.com",
+    title: "Elusive",
+    desc: "A way to search for clothes across stores.",
+    href: "https://elusivecph.com",
+    external: true,
+  },
+];
 ---
-<Layout title="Hanan | Software, research, and things I make" description="Hanan Choudhary Hadayat builds software and studies computer science at DTU.">
+<Layout title="Hanan | Software, research, and things I make" description="Hanan Choudhary Hadayat studies computer science at DTU and builds software for working with AI agents.">
   <Header />
-  <main id="main-content" class="site-shell">
+  <main id="main-content" class="home">
     <section class="intro" aria-labelledby="intro-title">
-      <p class="eyebrow">Copenhagen / software & research</p>
-      <h1 id="intro-title">I'm Hanan.<br /><span>I make things for the internet.</span></h1>
-      <p class="intro-text">I study computer science and engineering at DTU. Outside class, I build developer tools and work on Elusive, a way to find clothing worth looking for.</p>
-      <div class="intro-links"><a href="/about">More about me <span aria-hidden="true">↗</span></a><a href="mailto:hanan@uai.dk">Email me <span aria-hidden="true">↗</span></a></div>
+      <div class="who">
+        <figure class="print">
+          <span class="crop" aria-hidden="true"></span>
+          <img src="/images/hanan.png" width="1024" height="1024" alt="A glitched photograph of Hanan smiling, in a dark t-shirt on a black background." />
+        </figure>
+        <div class="bio">
+          <h1 id="intro-title">Hanan Choudhary Hadayat</h1>
+          <p>I study computer science at DTU, work part time as an engineer at Context&amp;, and founded Unravel AI. I live in Copenhagen.</p>
+          <p>Most of my building time goes into tools for coding agents. <a href="/projects/khadim-local-first-ai-coding-agent">Arvel</a> is a local-first agent workspace. <a href="/projects/blop-intent-based-agentic-browser-testing">Blop</a> tests browsers by intent and checks what agents did.</p>
+          <p>On the side I run <a href="https://elusivecph.com">Elusive</a>, a way to search for clothes across stores, and <a href="https://search.uai.dk">Unravel Search</a>, a search API for agents.</p>
+          <p>Want to talk? <a href="mailto:hanan@uai.dk">Send me an email<span class="arr" aria-hidden="true">↗</span></a></p>
+        </div>
+      </div>
+
+      <div class="plate" aria-label="Some real work">
+        <p class="plate-tag">things on my table</p>
+        <figure class="shot">
+          <a href="https://elusivecph.com" class="browser">
+            <span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="url">elusivecph.com</span></span>
+            <img src="/images/elusive-home-2026-11.jpg" width="1440" height="900" alt="The Elusive homepage: a green panel reading Find the one with a fashion search box, beside product photos of jackets and a shirt." />
+          </a>
+          <figcaption>Elusive's front page, captured November 2026</figcaption>
+        </figure>
+        <figure class="snap snap-shoes">
+          <a href={elusivePost}><img src="/images/IMG_1642-6.png" width="1920" height="900" alt="Sneakers in orange and blue leather posed on cardboard shoe boxes." /></a>
+          <figcaption>Photo from my Elusive write-up</figcaption>
+        </figure>
+        <figure class="snap snap-tree">
+          <a href={kdPost}><img src="/blog-images/kdtree.png" width="830" height="860" alt="A kd-tree diagram: points on a grid split by red and blue partition lines." /></a>
+          <figcaption>kd-tree diagram from my write-up</figcaption>
+        </figure>
+      </div>
     </section>
-    <section class="work" aria-labelledby="work-title">
-      <div class="section-head"><h2 id="work-title" class="section-label">Selected work</h2><a href="/projects">All projects ↗</a></div>
-      <ul class="content-list">
-        {selected.map(({ data }) => <li><a href={`/projects/${slugify(data)}`}><span class="meta">{data.pubDatetime.getFullYear()}</span><span class="entry-copy"><span class="entry-title">{data.title}</span><span class="entry-desc">{data.description}</span></span><span class="entry-arrow" aria-hidden="true">↗</span></a></li>)}
+
+    <section class="desk" aria-labelledby="now-title">
+      <h2 id="now-title">On my desk right now:</h2>
+      <p class="stamp">Updated October 2026</p>
+      <ul class="tree">
+        {now.map((item) => <li><span class="leaf-label">{item.label}</span><span class="leaf-text">{item.text}</span></li>)}
       </ul>
     </section>
-    <section id="contact" class="contact" aria-labelledby="contact-title"><h2 id="contact-title" class="section-label">Elsewhere</h2><p>I keep notes here, publish code on GitHub, and answer email.</p><div class="contact-links"><a href="https://github.com/hananinas">GitHub ↗</a><a href="mailto:hanan@uai.dk">hanan@uai.dk ↗</a></div></section>
+
+    <section class="made" aria-labelledby="work-title">
+      <h2 id="work-title">Things I make:</h2>
+      <ul class="made-list">
+        {work.map((item) => (
+          <li>
+            <a href={item.href}>
+              <span class="made-meta">{item.meta}</span>
+              <span class="made-title">{item.title}{item.note && <span class="made-note"> {item.note}</span>}<span class="arr" aria-hidden="true">{item.external ? "↗" : "→"}</span></span>
+              <span class="made-desc">{item.desc}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="all"><a href="/projects">Every project and older write-up</a></p>
+    </section>
+
+    <section class="older" aria-labelledby="older-title">
+      <figure class="wide">
+        <a href={friePost} class="browser">
+          <span class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="url">friegronne.dk, earlier version</span></span>
+          <img src="/blog-images/oldfriegronne.png" width="1175" height="960" loading="lazy" alt="An early Friegrønne website next to its Figma mockup: a pink news page and a white page with a factory skyline hero." />
+        </a>
+      </figure>
+      <div class="older-copy">
+        <h2 id="older-title">Something older</h2>
+        <p>An earlier website for Friegrønne, a Danish political party. I mapped the pages, drew the layouts in Figma and built them in WordPress. <a href={friePost}>Read how it went</a></p>
+      </div>
+    </section>
+
+    <section class="hello" aria-labelledby="hello-title">
+      <h2 id="hello-title" class="sr-only">Contact</h2>
+      <p>I keep notes here, publish code on <a href="https://github.com/hananinas">GitHub</a>, and answer email at <a href="mailto:hanan@uai.dk">hanan@uai.dk<span class="arr" aria-hidden="true">↗</span></a>. I'm also on <a href="https://www.linkedin.com/in/hanan-ch-hadayat-66419317b/">LinkedIn</a>.</p>
+    </section>
   </main>
   <Footer />
 </Layout>
 <style>
-.intro { padding: clamp(70px, 11vw, 138px) 0 clamp(84px, 12vw, 150px); max-width: 770px; }
-.intro .eyebrow { margin: 0 0 26px; }
-h1 { margin: 0; font-size: clamp(2.6rem, 6vw, 5.25rem); line-height: 1.13; letter-spacing: -.075em; font-weight: 700; }
-h1 span { color: #6b736a; }
-.intro-text { max-width: 590px; margin: 28px 0 0; font-size: clamp(1.02rem, 1.6vw, 1.18rem); line-height: 1.7; color: var(--secondary); }
-.intro-links,.contact-links { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 28px; font-size: .85rem; font-weight: 650; }
-.intro-links a,.contact-links a { text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 3px; }
-.section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
-.section-head h2 { margin: 0; }
-.section-head a { font-size: .78rem; color: var(--secondary); text-decoration: none; }
-.contact { margin: 110px 0 115px; border-top: 1px solid var(--line); padding-top: 28px; }
-.contact h2 { margin: 0; }
-.contact p { margin: 8px 0 0; color: var(--secondary); }
-.contact-links { margin-top: 18px; }
-@media (max-width: 640px) { .intro { padding: 72px 0 85px; } .contact { margin: 80px 0; } }
+.home { width: min(100% - 48px, 1140px); margin-inline: auto; }
+.home a { color: var(--accent); font-style: italic; text-decoration: none; }
+.home a:hover { color: var(--hover); text-decoration: underline; text-decoration-thickness: 1px; }
+.arr { display: inline-block; margin-left: .2em; font-style: normal; font-size: .85em; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Intro: tall air, narrow voice on the left, plate of real work on the right */
+.intro { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); padding-top: clamp(96px, 15vh, 170px); padding-bottom: 120px; }
+.who { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 32px; align-items: start; }
+.print { position: relative; margin: 14px 0 0; width: 112px; height: 136px; display: grid; place-items: center; }
+.crop { position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(var(--ink), var(--ink)) 0 0 / 12px 1px no-repeat, linear-gradient(var(--ink), var(--ink)) 0 0 / 1px 12px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) 100% 0 / 12px 1px no-repeat, linear-gradient(var(--ink), var(--ink)) 100% 0 / 1px 12px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) 0 100% / 12px 1px no-repeat, linear-gradient(var(--ink), var(--ink)) 0 100% / 1px 12px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) 100% 100% / 12px 1px no-repeat, linear-gradient(var(--ink), var(--ink)) 100% 100% / 1px 12px no-repeat;
+  opacity: .55; }
+.print img { width: 80px; height: 100px; object-fit: cover; object-position: 58% 38%; background: #000; border: 3px solid #ffffff; border-bottom-width: 9px; transform: rotate(-4deg); box-shadow: 5px 6px 0 rgba(0, 0, 0, .82); }
+.bio { max-width: 46ch; color: var(--secondary); font-size: 1.0625rem; line-height: 1.55; }
+.bio h1 { margin: 0 0 22px; font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(2.6rem, 4.2vw, 3.25rem); line-height: 1; letter-spacing: -.02em; color: var(--ink); }
+.bio p { margin: 0 0 16px; }
+
+.plate { position: relative; min-height: 560px; margin-top: -10px; }
+.plate-tag { position: absolute; left: 0; top: 0; margin: 0; font-size: .75rem; font-style: italic; color: var(--accent); }
+.plate::before { content: ""; position: absolute; left: 0; top: 22px; width: 88%; height: 410px; background: var(--card); border: 1px dashed var(--line); }
+.plate figure { margin: 0; }
+.plate figcaption, .older figcaption { margin-top: 6px; font-size: .72rem; line-height: 1.35; color: var(--secondary); }
+.browser { display: block; background: #ffffff; border-radius: 7px; overflow: hidden; box-shadow: 0 1px 0 rgba(0,0,0,.08), 0 14px 30px -14px rgba(0,0,0,.35); outline: 1px solid rgba(0,0,0,.1); }
+.browser img { display: block; width: 100%; height: auto; }
+.bar { display: flex; align-items: center; gap: 5px; height: 22px; padding: 0 9px; border-bottom: 1px solid var(--line); background: var(--card); }
+.bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+.bar .url { margin-inline: auto; padding: 1px 14px; border-radius: 4px; background: var(--card-muted); font-family: var(--mono); font-style: normal; font-size: .6rem; color: var(--secondary); }
+.shot { position: absolute; left: 22px; top: 48px; width: 78%; }
+.snap { position: absolute; }
+.snap a { display: block; line-height: 0; background: #ffffff; padding: 5px; box-shadow: 0 10px 22px -12px rgba(0,0,0,.45); outline: 1px solid rgba(0,0,0,.08); }
+.snap img { display: block; width: 100%; height: auto; }
+.snap-shoes { left: 40px; top: 352px; width: 46%; transform: rotate(-2.5deg); }
+.snap-shoes img { aspect-ratio: 4 / 3; object-fit: cover; object-position: 70% 50%; }
+.snap-tree { right: 0; top: 300px; width: 30%; transform: rotate(3deg); }
+.snap figcaption { padding-left: 2px; }
+
+/* Second act: tree list */
+.desk { position: relative; max-width: 720px; margin-left: 144px; padding-top: 30px; border-top: 1px solid var(--line); }
+.desk h2, .made h2, .older h2 { margin: 0; font-family: var(--sans); font-weight: 500; font-size: 1.0625rem; letter-spacing: 0; line-height: 1.4; color: var(--ink); }
+.stamp { margin: 2px 0 0; font-size: .8125rem; color: var(--secondary); }
+.tree { position: relative; margin: 18px 0 0 6px; padding: 0 0 0 40px; list-style: none; }
+.tree::before { content: ""; position: absolute; left: 0; top: 0; bottom: 1.25em; width: 1px; background: var(--line); }
+.tree li { position: relative; padding: 9px 0 9px; display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 16px; align-items: baseline; }
+.tree li::before { content: ""; position: absolute; left: -40px; top: calc(9px + .8em); width: 24px; height: 1px; background: var(--line); }
+.tree li:last-child::before { top: 0; height: calc(9px + .8em); width: 24px; background: none; border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); border-bottom-left-radius: 6px; }
+.leaf-label { font-family: var(--display); font-style: italic; font-size: 1.2rem; color: var(--ink); line-height: 1.2; }
+.leaf-text { font-size: 1.0625rem; line-height: 1.55; color: var(--ink); max-width: 56ch; }
+
+/* Work index */
+.made { max-width: 900px; margin: 120px 0 0 144px; }
+.made-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; margin: 18px 0 0; padding: 0; list-style: none; }
+.made-list li { border-top: 1px dashed var(--line); }
+.made-list a { display: block; padding: 18px 0 26px; color: inherit; font-style: normal; }
+.made-list a:hover { text-decoration: none; }
+.made-list a:hover .made-title { color: var(--hover); }
+.made-meta { display: block; font-size: .75rem; color: var(--secondary); }
+.made-title { display: block; margin-top: 4px; font-family: var(--display); font-style: italic; font-size: 2rem; line-height: 1.05; color: var(--ink); }
+.made-title .arr { font-family: var(--sans); font-size: .9rem; color: var(--accent); vertical-align: .55em; }
+.made-note { font-size: 1.05rem; color: var(--secondary); }
+.made-desc { display: block; margin-top: 6px; color: var(--secondary); font-size: 1rem; line-height: 1.5; }
+.all { margin: 6px 0 0; font-size: 1rem; }
+
+/* Older work, one plate */
+.older { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 56px; align-items: end; margin: 150px 0 0; }
+.older .wide { margin: 0; }
+.older .browser img { aspect-ratio: 1175 / 720; object-fit: cover; object-position: top; }
+.older-copy { max-width: 40ch; color: var(--secondary); padding-bottom: 8px; }
+.older-copy p { margin: 8px 0 0; }
+
+.hello { max-width: 46ch; margin: 140px 0 140px 144px; font-size: 1.1875rem; line-height: 1.6; color: var(--secondary); }
+.hello p { margin: 0; }
+
+@media (max-width: 1000px) {
+  .intro { grid-template-columns: minmax(0, 1fr); padding-bottom: 80px; }
+  .plate { max-width: 620px; width: 100%; min-height: 0; aspect-ratio: 520 / 560; }
+  .plate::before { height: 74%; }
+  .snap-shoes { top: 63%; }
+  .snap-tree { top: 54%; }
+  .desk, .made, .hello { margin-left: 0; }
+  .older { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}
+@media (max-width: 640px) {
+  .home { width: min(100% - 32px, 1140px); }
+  .intro { padding-top: 72px; gap: 52px; }
+  .who { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .print { margin: 0; width: 96px; height: 118px; }
+  .print img { width: 70px; height: 88px; }
+  .bio h1 { font-size: 2.5rem; }
+  .plate { aspect-ratio: auto; height: 510px; }
+  .plate::before { width: 94%; height: 290px; }
+  .shot { left: 12px; top: 40px; width: 86%; }
+  .snap-shoes { left: 18px; top: 304px; width: 56%; }
+  .snap-tree { top: 290px; width: 34%; }
+  .tree { padding-left: 28px; }
+  .tree li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .tree li::before, .tree li:last-child::before { left: -28px; width: 16px; }
+  .made { margin-top: 90px; }
+  .made-list { grid-template-columns: minmax(0, 1fr); }
+  .older { margin-top: 100px; }
+  .hello { margin: 100px 0; font-size: 1.0625rem; }
+}
 </style>

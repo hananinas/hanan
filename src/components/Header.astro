@@ -3,26 +3,134 @@ export interface Props {
   activeNav?: "projects" | "skils" | "studies" | "about" | "search";
 }
 const { activeNav } = Astro.props;
+const items = [
+  { key: "projects", href: "/projects", label: "Work" },
+  { key: "studies", href: "/studies", label: "Studies" },
+  { key: "about", href: "/about", label: "About" },
+  { key: "search", href: "/search", label: "Search" },
+] as const;
 ---
-<header class="site-header site-shell">
+<header class="site-header">
   <a class="skip" href="#main-content">Skip to content</a>
-  <a class="wordmark" href="/" aria-label="Hanan, home">Hanan<span class="mark">.</span></a>
+  <a class="home-mark" href="/" aria-label="Hanan, home">
+    <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+      <defs>
+        <radialGradient id="mark-light" cx="35%" cy="25%" r="75%">
+          <stop offset="0" stop-color="#4a4840" />
+          <stop offset=".6" stop-color="#1d1c18" />
+          <stop offset="1" stop-color="#0f0e0c" />
+        </radialGradient>
+      </defs>
+      <ellipse cx="21.5" cy="23" rx="15.5" ry="14.5" fill="#1d1c18" opacity=".18" />
+      <path d="M20 4.5c9.2 0 15 5.6 15 14.6 0 9.6-6.4 16.4-15.4 16.4C10.8 35.5 5 29.4 5 20.6 5 11 11 4.5 20 4.5Z" fill="url(#mark-light)" />
+      <path d="M11 11.5c2.4-3 5.6-4.4 9-4.4" stroke="#fff" stroke-opacity=".35" stroke-width="1.6" stroke-linecap="round" fill="none" />
+      <path d="M16.4 27.6 19.6 12.4M18.2 19.6c1.6-2 3.4-3 4.9-3 1.6 0 2.1 1.1 1.7 2.9l-1.2 5.6c-.3 1.4.5 1.9 1.9.9" stroke="#f4f1ea" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      <circle cx="29.2" cy="27.4" r="2.1" style="fill:var(--accent-bright)" />
+    </svg>
+  </a>
   <nav aria-label="Main navigation">
-    <a href="/projects" aria-current={activeNav === "projects" ? "page" : undefined}>Work</a>
-    <a href="/studies" aria-current={activeNav === "studies" ? "page" : undefined}>Studies</a>
-    <a href="/about" aria-current={activeNav === "about" ? "page" : undefined}>About</a>
-    <a href="/search" aria-current={activeNav === "search" ? "page" : undefined}>Search</a>
+    {items.map((item) => (
+      <a href={item.href} class="obj" aria-current={activeNav === item.key ? "page" : undefined}>
+        <span class="obj-art" aria-hidden="true">
+          {item.key === "projects" && (
+            <svg viewBox="0 0 64 64">
+              <defs>
+                <linearGradient id="g-work" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--obj-hi)" /><stop offset="1" style="stop-color:var(--obj-lo)" /></linearGradient>
+              </defs>
+              <ellipse cx="33" cy="56" rx="22" ry="3.2" fill="#000" opacity=".12" />
+              <rect x="14" y="10" width="34" height="40" rx="4" style="fill:var(--obj-lo)" transform="rotate(-8 31 30)" />
+              <rect x="12" y="8" width="40" height="44" rx="4" fill="url(#g-work)" />
+              <path d="M12 16h40" stroke="#000" stroke-opacity=".18" />
+              <circle cx="17" cy="12" r="1.3" style="fill:var(--obj-shine)" /><circle cx="21" cy="12" r="1.3" style="fill:var(--obj-shine)" /><circle cx="25" cy="12" r="1.3" style="fill:var(--obj-shine)" />
+              <rect x="17" y="21" width="14" height="11" rx="1.5" style="fill:var(--obj-shine)" opacity=".75" />
+              <rect x="34" y="21" width="13" height="2.4" rx="1.2" style="fill:var(--obj-shine)" opacity=".55" />
+              <rect x="34" y="26" width="9" height="2.4" rx="1.2" style="fill:var(--obj-shine)" opacity=".4" />
+              <rect x="17" y="37" width="30" height="2.4" rx="1.2" style="fill:var(--obj-shine)" opacity=".4" />
+              <rect x="17" y="42" width="22" height="2.4" rx="1.2" style="fill:var(--obj-shine)" opacity=".3" />
+              <circle cx="45" cy="44" r="3" style="fill:var(--obj-dot)" />
+              <path d="M14 9.5h36" stroke="#fff" stroke-opacity=".45" stroke-linecap="round" />
+            </svg>
+          )}
+          {item.key === "studies" && (
+            <svg viewBox="0 0 64 64">
+              <defs>
+                <linearGradient id="g-study" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--obj-hi)" /><stop offset="1" style="stop-color:var(--obj-lo)" /></linearGradient>
+              </defs>
+              <ellipse cx="32" cy="56" rx="24" ry="3.2" fill="#000" opacity=".12" />
+              <path d="M32 16c-6-4-14-5-22-4v36c8-1 16 0 22 4 6-4 14-5 22-4V12c-8-1-16 0-22 4Z" fill="url(#g-study)" />
+              <path d="M32 16v36" stroke="#000" stroke-opacity=".28" stroke-width="1.4" />
+              <path d="M14 20c5-.4 10 .4 14 2.2M14 26c5-.4 10 .4 14 2.2M14 32c5-.4 10 .4 14 2.2M36 22.2c4-1.8 9-2.6 14-2.2M36 28.2c4-1.8 9-2.6 14-2.2" style="stroke:var(--obj-shine)" stroke-opacity=".5" stroke-width="1.6" stroke-linecap="round" fill="none" />
+              <path d="M44 9v15l3-2.2 3 2.2V9.6" style="fill:var(--obj-dot)" />
+              <path d="M11 12.6c7-.7 14 .3 20 3.6" stroke="#fff" stroke-opacity=".45" stroke-linecap="round" fill="none" />
+            </svg>
+          )}
+          {item.key === "about" && (
+            <svg viewBox="0 0 64 64">
+              <defs>
+                <linearGradient id="g-about" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--obj-hi)" /><stop offset="1" style="stop-color:var(--obj-lo)" /></linearGradient>
+              </defs>
+              <ellipse cx="32" cy="57" rx="20" ry="3" fill="#000" opacity=".12" />
+              <rect x="15" y="10" width="34" height="44" rx="5" fill="url(#g-about)" transform="rotate(4 32 32)" />
+              <g transform="rotate(4 32 32)">
+                <rect x="27" y="13" width="10" height="2.6" rx="1.3" fill="#000" opacity=".3" />
+                <rect x="20" y="20" width="24" height="20" rx="2" style="fill:var(--obj-shine)" opacity=".3" />
+                <circle cx="32" cy="27.5" r="4.6" style="fill:var(--obj-shine)" opacity=".85" />
+                <path d="M23.5 40c1.4-5 4.6-7.4 8.5-7.4s7.1 2.4 8.5 7.4Z" style="fill:var(--obj-shine)" opacity=".85" />
+                <rect x="20" y="44" width="16" height="2.4" rx="1.2" style="fill:var(--obj-shine)" opacity=".45" />
+                <circle cx="41" cy="45.2" r="2.6" style="fill:var(--obj-dot)" />
+                <path d="M18 11.5h28" stroke="#fff" stroke-opacity=".45" stroke-linecap="round" />
+              </g>
+            </svg>
+          )}
+          {item.key === "search" && (
+            <svg viewBox="0 0 64 64">
+              <defs>
+                <linearGradient id="g-search" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--obj-hi)" /><stop offset="1" style="stop-color:var(--obj-lo)" /></linearGradient>
+                <radialGradient id="g-glass" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".7" /><stop offset="1" stop-color="#fff" stop-opacity=".08" /></radialGradient>
+              </defs>
+              <ellipse cx="34" cy="57" rx="20" ry="3" fill="#000" opacity=".12" />
+              <path d="M38.5 38.5 52 52" style="stroke:var(--obj-lo)" stroke-width="9" stroke-linecap="round" />
+              <path d="M39.5 39.5 51 51" style="stroke:var(--obj-hi)" stroke-width="3" stroke-linecap="round" opacity=".7" />
+              <circle cx="27" cy="27" r="17" fill="url(#g-search)" />
+              <circle cx="27" cy="27" r="11.5" style="fill:var(--page)" />
+              <circle cx="27" cy="27" r="11.5" fill="url(#g-glass)" />
+              <path d="M20 22.5c1.6-2.6 4-4 7-4" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none" />
+              <circle cx="31.5" cy="31" r="2.6" style="fill:var(--obj-dot)" />
+              <path d="M16 17.5c2.6-3.4 6.4-5.4 11-5.4" stroke="#fff" stroke-opacity=".4" stroke-linecap="round" fill="none" />
+            </svg>
+          )}
+        </span>
+        <span class="obj-label">{item.label}</span>
+      </a>
+    ))}
   </nav>
 </header>
 <style>
-.site-header { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-top: 34px; padding-bottom: 30px; border-bottom: 1px solid var(--line); }
-.wordmark { font-size: 1.15rem; font-weight: 800; letter-spacing: -.065em; text-decoration: none; white-space: nowrap; }
-.mark { color: var(--accent); }
-nav { display: flex; align-items: center; flex-wrap: wrap; gap: clamp(12px, 3vw, 32px); }
-nav a { font-size: .82rem; text-decoration: none; color: var(--secondary); }
-nav a:hover, nav a[aria-current="page"] { color: var(--ink); }
-nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 7px; }
+.site-header { position: relative; display: flex; align-items: flex-start; justify-content: flex-end; width: min(100% - 48px, 1200px); margin-inline: auto; padding-top: 26px; }
+.home-mark { position: absolute; left: 0; top: 30px; display: block; line-height: 0; border-radius: 50%; transition: transform .2s ease; }
+.home-mark:hover { transform: rotate(-8deg); }
+nav { display: flex; align-items: flex-start; gap: clamp(10px, 3.4vw, 46px); }
+.obj {
+  --obj-hi: #c9c4b8; --obj-lo: #8f8a7e; --obj-shine: #f7f5ef; --obj-dot: #b5afa2;
+  display: flex; flex-direction: column; align-items: center; gap: 6px; width: 76px; text-decoration: none; color: var(--secondary);
+}
+.obj-art { display: block; width: 64px; height: 64px; transition: transform .22s cubic-bezier(.3,.7,.4,1); }
+.obj-art svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.obj-label { font-size: .78rem; line-height: 1.2; letter-spacing: .01em; }
+.obj:hover { color: var(--ink); --obj-hi: #8f8a7e; --obj-lo: #5d594f; }
+.obj:hover .obj-art { transform: translateY(-3px); }
+.obj[aria-current="page"] { color: var(--accent); --obj-hi: #55524a; --obj-lo: #1d1c18; --obj-shine: #efece4; --obj-dot: var(--hover-bright); }
+.obj[aria-current="page"] .obj-label { font-weight: 600; }
 .skip { position: absolute; top: -100px; left: 18px; padding: 5px 10px; background: var(--ink); color: var(--page); z-index: 10; }
 .skip:focus { top: 8px; }
-@media (max-width: 560px) { .site-header { display: block; padding-top: 20px; padding-bottom: 16px; } nav { margin-top: 12px; gap: 18px; } nav a { font-size: .78rem; } }
+@media (max-width: 640px) {
+  .site-header { width: min(100% - 32px, 1200px); padding-top: 18px; }
+  .home-mark { top: 22px; }
+  nav { gap: 2px; }
+  .obj { width: 66px; gap: 4px; }
+  .obj-art { width: 46px; height: 46px; }
+  .obj-label { font-size: .72rem; }
+}
+@media (max-width: 370px) { .obj { width: 58px; } .obj-art { width: 40px; height: 40px; } }
+@media (prefers-reduced-motion: reduce) { .obj-art, .home-mark { transition: none; } .obj:hover .obj-art, .home-mark:hover { transform: none; } }
 </style>

@@ -9,8 +9,10 @@ tags:
 - TypeScript
 - AI Agents
 - CLI
-description: Khadim is an open-source, local-first agentic automation platform, starting with a CLI coding agent that reads your codebase, writes and executes code, and retries until things work — all on your own machine.
+description: Khadim is an open-source, local-first agentic automation platform, starting with a CLI coding agent that reads your codebase, writes and executes code, and retries until things work — all on your own machine. Renamed to Arvel in September 2026.
 ---
+
+> Renamed: Khadim became **Arvel** in September 2026. This post describes the project as it stood in June, and the code has moved on since.
 
 Khadim is one of the projects I'm most excited about right now. It's an **open-source, local-first agentic automation platform**, and the first working piece of it is a CLI coding agent that runs entirely in your terminal.
 

@@ -21,3 +21,6 @@ pnpm-debug.log*
 
 # ignore .astro directory
 .astro
+
+# agent verification screenshots (regenerable)
+docs/agents/evidence/

@@ -8,7 +8,7 @@ const tags = getUniqueTags(await getCollection("blog"));
 ---
 <Layout title="Topics | Hanan" description="Browse Hanan's project notes by topic.">
   <Header activeNav="skils" />
-  <main id="main-content" class="site-shell topics-main"><p class="eyebrow">Index</p><h1>Topics</h1><p class="intro">A way into the project archive. These are tags on posts, not a ranking of skills.</p><ul class="topic-list">{tags.map(tag => <li><a href={`/skils/${tag}`}>{tag} <span aria-hidden="true">↗</span></a></li>)}</ul></main>
+  <main id="main-content" class="site-shell topics-main"><h1>Topics</h1><p class="intro">A way into the project archive. These are tags on posts, not a ranking of skills.</p><ul class="topic-list">{tags.map(tag => <li><a href={`/skils/${tag}`}>{tag} <span aria-hidden="true">↗</span></a></li>)}</ul></main>
   <Footer />
 </Layout>
 <style>
